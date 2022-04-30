@@ -345,8 +345,8 @@ def full_app(session_state):
 
                 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
                 draw.text((735, 1820), base_L, fill="black", font=font, align="center")
-                draw.text((735, 1150), mid_L, fill="black", font=font, align="center")
-                draw.text((735, 425), apex_L, fill="black", font=font, align="center")
+                draw.text((735, 1170), mid_L, fill="black", font=font, align="center")
+                draw.text((735, 525), apex_L, fill="black", font=font, align="center")
                 draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
                 draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
                 draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
