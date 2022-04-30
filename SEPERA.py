@@ -265,19 +265,19 @@ def full_app(session_state):
 
                 if mid_findings == 1:
                     image_ml_G1 = PIL.Image.open('Images/Mid 1.png')
-                    image2.paste(image_ml_G1, (145, 606), mask=image_ml_G1)
+                    image2.paste(image_ml_G1, (145, 500), mask=image_ml_G1) #606
                 if mid_findings == 2:
                     image_ml_G2 = PIL.Image.open('Images/Mid 2.png')
-                    image2.paste(image_ml_G2, (145, 606), mask=image_ml_G2)
+                    image2.paste(image_ml_G2, (145, 500), mask=image_ml_G2)
                 if mid_findings == 3:
                     image_ml_G3 = PIL.Image.open('Images/Mid 3.png')
-                    image2.paste(image_ml_G3, (145, 606), mask=image_ml_G3)
+                    image2.paste(image_ml_G3, (145, 500), mask=image_ml_G3)
                 if mid_findings == 4:
                     image_ml_G4 = PIL.Image.open('Images/Mid 4.png')
-                    image2.paste(image_ml_G4, (145, 606), mask=image_ml_G4)
+                    image2.paste(image_ml_G4, (145, 500), mask=image_ml_G4)
                 if mid_findings == 5:
                     image_ml_G5 = PIL.Image.open('Images/Mid 5.png')
-                    image2.paste(image_ml_G5, (145, 606), mask=image_ml_G5)
+                    image2.paste(image_ml_G5, (145, 500), mask=image_ml_G5)
 
                 if apex_findings == 1:
                     image_al_G1 = PIL.Image.open('Images/Corner 1.png')
