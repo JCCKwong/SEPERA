@@ -252,20 +252,20 @@ def full_app(session_state):
                     image2.paste(image_bl_G1, (495, 1615), mask=image_bl_G1)
                 if base_findings == 2:
                     image_bl_G2 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 2.png'))
-                    image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
+                    image2.paste(image_bl_G2, (495, 1615), mask=image_bl_G2)
                 if base_findings == 3:
                     image_bl_G3 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 3.png'))
-                    image2.paste(image_bl_G3, (145, 958), mask=image_bl_G3)
+                    image2.paste(image_bl_G3, (495, 1615), mask=image_bl_G3)
                 if base_findings == 4:
                     image_bl_G4 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 4.png'))
-                    image2.paste(image_bl_G4, (145, 958), mask=image_bl_G4)
+                    image2.paste(image_bl_G4, (495, 1615), mask=image_bl_G4)
                 if base_findings == 5:
                     image_bl_G5 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 5.png'))
-                    image2.paste(image_bl_G5, (145, 958), mask=image_bl_G5)
+                    image2.paste(image_bl_G5, (495, 1615), mask=image_bl_G5)
 
                 if mid_findings == 1:
                     image_ml_G1 = PIL.Image.open('Images/Mid 1.png')
-                    image2.paste(image_ml_G1, (500, 958), mask=image_ml_G1) #606
+                    image2.paste(image_ml_G1, (495, 958), mask=image_ml_G1) #606
                 if mid_findings == 2:
                     image_ml_G2 = PIL.Image.open('Images/Mid 2.png')
                     image2.paste(image_ml_G2, (145, 500), mask=image_ml_G2)
