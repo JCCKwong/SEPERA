@@ -111,11 +111,11 @@ def full_app(session_state):
         return CHOICES[option]
 
     G_CHOICES = {0: 'Benign',
-                 1: 'ISUP Grade 1 (Gleason 3+3)',
-                 2: 'ISUP Grade 2 (Gleason 3+4)',
-                 3: 'ISUP Grade 3 (Gleason 4+3)',
-                 4: 'ISUP Grade 4 (Gleason 4+4/5+3/3+5)',
-                 5: 'ISUP Grade 5 (Gleason 4+5/5+4/5+5)'}
+                 1: 'ISUP Grade 1',
+                 2: 'ISUP Grade 2',
+                 3: 'ISUP Grade 3',
+                 4: 'ISUP Grade 4',
+                 5: 'ISUP Grade 5'}
 
     def format_func_gleason(option):
         return G_CHOICES[option]
@@ -344,7 +344,7 @@ def full_app(session_state):
                     image2.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
 
                 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
-                draw.text((625, 1800), base_L, fill="black", font=font, align="center")
+                draw.text((630, 1820), base_L, fill="black", font=font, align="center")
                 draw.text((700, 690), mid_L, fill="black", font=font, align="center")
                 draw.text((525, 275), apex_L, fill="black", font=font, align="center")
                 draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
