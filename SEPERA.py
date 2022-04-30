@@ -265,18 +265,18 @@ def full_app(session_state):
 
                 if mid_findings == 1:
                     image_ml_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
-                    image2.paste(image_ml_G1, (495, 958), mask=image_ml_G1) #606
+                    image2.paste(image_ml_G1, (495, 965), mask=image_ml_G1) #606
                 if mid_findings == 2:
-                    image_ml_G2 = PIL.Image.open('Images/Mid 2.png')
+                    image_ml_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
                     image2.paste(image_ml_G2, (145, 500), mask=image_ml_G2)
                 if mid_findings == 3:
-                    image_ml_G3 = PIL.Image.open('Images/Mid 3.png')
+                    image_ml_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
                     image2.paste(image_ml_G3, (145, 500), mask=image_ml_G3)
                 if mid_findings == 4:
-                    image_ml_G4 = PIL.Image.open('Images/Mid 4.png')
+                    image_ml_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
                     image2.paste(image_ml_G4, (145, 500), mask=image_ml_G4)
                 if mid_findings == 5:
-                    image_ml_G5 = PIL.Image.open('Images/Mid 5.png')
+                    image_ml_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
                     image2.paste(image_ml_G5, (145, 500), mask=image_ml_G5)
 
                 if apex_findings == 1:
@@ -312,19 +312,19 @@ def full_app(session_state):
                     image2.paste(image_br_G5, (1104, 958), mask=image_br_G5)
 
                 if mid_findings_r == 1:
-                    image_mr_G1 = PIL.Image.open('Images/Mid 1.png')
+                    image_mr_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
                     image2.paste(image_mr_G1, (1542, 606), mask=image_mr_G1)
                 if mid_findings_r == 2:
-                    image_mr_G2 = PIL.Image.open('Images/Mid 2.png')
+                    image_mr_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
                     image2.paste(image_mr_G2, (1542, 606), mask=image_mr_G2)
                 if mid_findings_r == 3:
-                    image_mr_G3 = PIL.Image.open('Images/Mid 3.png')
+                    image_mr_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
                     image2.paste(image_mr_G3, (1542, 606), mask=image_mr_G3)
                 if mid_findings_r == 4:
-                    image_mr_G4 = PIL.Image.open('Images/Mid 4.png')
+                    image_mr_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
                     image2.paste(image_mr_G4, (1542, 606), mask=image_mr_G4)
                 if mid_findings_r == 5:
-                    image_mr_G5 = PIL.Image.open('Images/Mid 5.png')
+                    image_mr_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
                     image2.paste(image_mr_G5, (1542, 606), mask=image_mr_G5)
 
                 if apex_findings_r == 1:
