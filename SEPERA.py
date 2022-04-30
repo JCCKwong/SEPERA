@@ -60,7 +60,7 @@ def full_app(session_state):
               Y patients had ssEPE')
 
     # Specify font size for annotated prostate diagram
-    font = ImageFont.truetype('Font.ttf', 50)
+    font = ImageFont.truetype('Image/Font.ttf', 70)
 
     # Load saved items from Google Drive
     Model_location = st.secrets['SEPERA']
@@ -216,7 +216,7 @@ def full_app(session_state):
 
                 # Store a dictionary into a variable
                 pt_data_r = {'Age at Biopsy': age,
-                             'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
+                             'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
                              'PSA density': psa/vol,
                              'Perineural invasion': perineural_inv,
                              '% positive cores': (pos_core_r/taken_core_r)*100,
@@ -233,7 +233,7 @@ def full_app(session_state):
                 ### ANNOTATED PROSTATE DIAGRAM ###
                 # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
                 base_L = str(G_CHOICES[base_findings]) + '\n' \
-                         + '% core inv: ' + str(base_p_inv)
+                         + '% core involvement: ' + str(base_p_inv)
                 mid_L = str(G_CHOICES[mid_findings]) + '\n' \
                         + '% core inv: ' + str(mid_p_inv)
                 apex_L = str(G_CHOICES[apex_findings]) + '\n' \
@@ -344,7 +344,7 @@ def full_app(session_state):
                     image2.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
 
                 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
-                draw.text((525, 1110), base_L, fill="black", font=font, align="center")
+                draw.text((600, 1615), base_L, fill="black", font=font, align="center")
                 draw.text((205, 690), mid_L, fill="black", font=font, align="center")
                 draw.text((525, 275), apex_L, fill="black", font=font, align="center")
                 draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
@@ -374,130 +374,6 @@ def full_app(session_state):
                                  text_rotation=10)
                 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
                 plt.clf()
-
-                """
-                ### COMPARISON TO STUDY POPULATION ###
-                colglobal.write('**Global Variables**')
-
-                # PSA
-                shap.plots.scatter(model_shap[:, 0], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_psa = np.array(pt_features)[:, 0]
-                y_pt_psa = shap_values[:, 0]
-                plt.plot(x_pt_psa, y_pt_psa, 'ro', markersize=7, alpha=1)
-                colpsa.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # Maximum % core involvement
-                shap.plots.scatter(model_shap[:, 1], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_maxci = np.array(pt_features)[:, 1]
-                y_pt_maxci = shap_values[:, 1]
-                plt.plot(x_pt_maxci, y_pt_maxci, 'ro', markersize=7, alpha=1)
-                colmaxci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # % Gleason 4/5
-                shap.plots.scatter(model_shap[:, 2], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_phigh = np.array(pt_features)[:, 2]
-                y_pt_phigh = shap_values[:, 2]
-                plt.plot(x_pt_phigh, y_pt_phigh, 'ro', markersize=7, alpha=1)
-                colphigh.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # Perineural invasion
-                shap.plots.scatter(model_shap[:, 3], hist=True, dot_size=5, show=False)
-                positions = (0, 1)
-                x_labels = ('No', 'Yes')
-                plt.xticks(positions, x_labels, rotation=0)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_pinv = np.array(pt_features)[:, 3]
-                y_pt_pinv = shap_values[:, 3]
-                plt.plot(x_pt_pinv, y_pt_pinv, 'ro', markersize=7, alpha=1)
-                colpinv.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # Age
-                shap.plots.scatter(model_shap[:, 8], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_age = np.array(pt_features)[:, 8]
-                y_pt_age = shap_values[:, 8]
-                plt.plot(x_pt_age, y_pt_age, 'ro', markersize=7, alpha=1)
-                colage.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                colside.write('**Side-specific Variables**')
-                colside.write('**Red** data-points represents **left** side-specific values, while **green** '
-                              'data-points represents **right** side-specific values.')
-
-                # Base # core involvement
-                shap.plots.scatter(model_shap[:, 4], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_bci = np.array(pt_features)[:, 4]
-                y_pt_bci = shap_values[:, 4]
-                x_pt_bcir = np.array(pt_features_r)[:, 4]
-                y_pt_bcir = shap_values_r[:, 4]
-                plt.plot(x_pt_bci, y_pt_bci, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_bcir, y_pt_bcir, 'ro', markersize=7, alpha=1, color='green')
-                colbci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # Mid % core involvement
-                shap.plots.scatter(model_shap[:, 10], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_mci = np.array(pt_features)[:, 10]
-                y_pt_mci = shap_values[:, 10]
-                x_pt_mcir = np.array(pt_features_r)[:, 10]
-                y_pt_mcir = shap_values_r[:, 10]
-                plt.plot(x_pt_mci, y_pt_mci, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_mcir, y_pt_mcir, 'ro', markersize=7, alpha=1, color='green')
-                colmci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # TZ % core involvement
-                shap.plots.scatter(model_shap[:, 7], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_tzci = np.array(pt_features)[:, 7]
-                y_pt_tzci = shap_values[:, 7]
-                x_pt_tzcir = np.array(pt_features_r)[:, 7]
-                y_pt_tzcir = shap_values_r[:, 7]
-                plt.plot(x_pt_tzci, y_pt_tzci, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_tzcir, y_pt_tzcir, 'ro', markersize=7, alpha=1, color='green')
-                coltzci.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # Base findings
-                shap.plots.scatter(model_shap[:, 5], hist=True, dot_size=5, show=False)
-                positions = (0, 1, 2, 3, 4, 5, 6, 7)
-                x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
-                plt.xticks(positions, x_labels, rotation=0)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_bf = np.array(pt_features)[:, 5]
-                y_pt_bf = shap_values[:, 5]
-                x_pt_bfr = np.array(pt_features_r)[:, 5]
-                y_pt_bfr = shap_values_r[:, 5]
-                plt.plot(x_pt_bf, y_pt_bf, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_bfr, y_pt_bfr, 'ro', markersize=7, alpha=1, color='green')
-                colbf.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # Worst Gleason Grade Group
-                shap.plots.scatter(model_shap[:, 9], hist=True, dot_size=5, show=False)
-                positions = (0, 1, 2, 3, 4, 5, 6, 7)
-                x_labels = ('Normal', 'HGPIN', 'ASAP', 'GGG1', 'GGG2', 'GGG3', 'GGG4', 'GGG5')
-                plt.xticks(positions, x_labels, rotation=0)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_wggg = np.array(pt_features)[:, 9]
-                y_pt_wggg = shap_values[:, 9]
-                x_pt_wgggr = np.array(pt_features_r)[:, 9]
-                y_pt_wgggr = shap_values_r[:, 9]
-                plt.plot(x_pt_wggg, y_pt_wggg, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_wgggr, y_pt_wgggr, 'ro', markersize=7, alpha=1, color='green')
-                colwggg.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-
-                # % positive cores
-                shap.plots.scatter(model_shap[:, 6], hist=True, dot_size=5, show=False)
-                plt.ylabel('Impact on probability of ssEPE')
-                x_pt_pc = np.array(pt_features)[:, 6]
-                y_pt_pc = shap_values[:, 6]
-                x_pt_pcr = np.array(pt_features_r)[:, 6]
-                y_pt_pcr = shap_values_r[:, 6]
-                plt.plot(x_pt_pc, y_pt_pc, 'ro', markersize=7, alpha=1, color='red')
-                plt.plot(x_pt_pcr, y_pt_pcr, 'ro', markersize=7, alpha=1, color='green')
-                colpc.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                """
 
 def about(session_state):
     st.markdown(
