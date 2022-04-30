@@ -60,7 +60,7 @@ def full_app(session_state):
               Y patients had ssEPE')
 
     # Specify font size for annotated prostate diagram
-    font = ImageFont.truetype('Images/Font.ttf', 70)
+    font = ImageFont.truetype('Images/Font.ttf', 90)
 
     # Load saved items from Google Drive
     Model_location = st.secrets['SEPERA']
@@ -344,8 +344,8 @@ def full_app(session_state):
                     image2.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
 
                 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
-                draw.text((600, 1615), base_L, fill="black", font=font, align="center")
-                draw.text((205, 690), mid_L, fill="black", font=font, align="center")
+                draw.text((650, 1800), base_L, fill="black", font=font, align="center")
+                draw.text((700, 690), mid_L, fill="black", font=font, align="center")
                 draw.text((525, 275), apex_L, fill="black", font=font, align="center")
                 draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
                 draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
