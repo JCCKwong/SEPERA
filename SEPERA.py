@@ -347,9 +347,9 @@ def full_app(session_state):
                 draw.text((735, 1820), base_L, fill="black", font=font, align="center")
                 draw.text((735, 1190), mid_L, fill="black", font=font, align="center")
                 draw.text((735, 525), apex_L, fill="black", font=font, align="center")
-                draw.text((1790, 1820), base_R, fill="black", font=font, align="center")
-                draw.text((1790, 1190), mid_R, fill="black", font=font, align="center")
-                draw.text((1790, 525), apex_R, fill="black", font=font, align="center")
+                draw.text((1770, 1820), base_R, fill="black", font=font, align="center")
+                draw.text((1770, 1190), mid_R, fill="black", font=font, align="center")
+                draw.text((1770, 525), apex_R, fill="black", font=font, align="center")
                 col1.image(image2, use_column_width='auto')
                 col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
                            '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
