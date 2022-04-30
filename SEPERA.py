@@ -249,7 +249,7 @@ def full_app(session_state):
                 draw = ImageDraw.Draw(image2)
                 if base_findings == 1:
                     image_bl_G1 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 1.png'))
-                    image2.paste(image_bl_G1, (145, 958), mask=image_bl_G1)
+                    image2.paste(image_bl_G1, (300, 1200), mask=image_bl_G1)
                 if base_findings == 2:
                     image_bl_G2 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 2.png'))
                     image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
@@ -265,7 +265,7 @@ def full_app(session_state):
 
                 if mid_findings == 1:
                     image_ml_G1 = PIL.Image.open('Images/Mid 1.png')
-                    image2.paste(image_ml_G1, (145, 500), mask=image_ml_G1) #606
+                    image2.paste(image_ml_G1, (145, 958), mask=image_ml_G1) #606
                 if mid_findings == 2:
                     image_ml_G2 = PIL.Image.open('Images/Mid 2.png')
                     image2.paste(image_ml_G2, (145, 500), mask=image_ml_G2)
