@@ -370,7 +370,7 @@ def full_app(session_state):
                 # SHAP plot for right lobe
                 col2.subheader('Right lobe')
                 shap_values_r = explainer.shap_values(pt_features_r)
-                shap.plots.force(explainer.expected_value[1], shap_values_r[1], pt_features_r, features_list, matplotlib=True,
+                shap.plots.force(explainer.expected_value[0], shap_values_r[0], pt_features_r, features_list, matplotlib=True,
                                  text_rotation=10)
                 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
                 plt.clf()
