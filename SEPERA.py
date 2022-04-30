@@ -235,15 +235,15 @@ def full_app(session_state):
                 base_L = str(G_CHOICES[base_findings]) + '\n' \
                          + '% core involvement: ' + str(base_p_inv)
                 mid_L = str(G_CHOICES[mid_findings]) + '\n' \
-                        + '% core inv: ' + str(mid_p_inv)
+                        + '% core involvement: ' + str(mid_p_inv)
                 apex_L = str(G_CHOICES[apex_findings]) + '\n' \
-                         + '% core inv: ' + str(apex_p_inv)
+                         + '% core involvement: ' + str(apex_p_inv)
                 base_R = str(G_CHOICES[base_findings_r]) + '\n' \
-                         + '% core inv: ' + str(base_p_inv_r)
+                         + '% core involvement: ' + str(base_p_inv_r)
                 mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
-                        + '% core inv: ' + str(mid_p_inv_r)
+                        + '% core involvement: ' + str(mid_p_inv_r)
                 apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
-                         + '% core inv: ' + str(apex_p_inv_r)
+                         + '% core involvement: ' + str(apex_p_inv_r)
 
                 # Set conditions to show colour coded site images based on Gleason Grade Group for each site
                 draw = ImageDraw.Draw(image2)
@@ -345,8 +345,8 @@ def full_app(session_state):
 
                 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
                 draw.text((735, 1820), base_L, fill="black", font=font, align="center")
-                draw.text((735, 1130), mid_L, fill="black", font=font, align="center")
-                draw.text((735, 375), apex_L, fill="black", font=font, align="center")
+                draw.text((735, 1150), mid_L, fill="black", font=font, align="center")
+                draw.text((735, 425), apex_L, fill="black", font=font, align="center")
                 draw.text((1300, 1110), base_R, fill="black", font=font, align="center")
                 draw.text((1590, 690), mid_R, fill="black", font=font, align="center")
                 draw.text((1300, 275), apex_R, fill="black", font=font, align="center")
