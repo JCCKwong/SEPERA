@@ -297,13 +297,13 @@ def full_app(session_state):
 
                 if base_findings_r == 1:
                     image_br_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 1.png')))
-                    image2.paste(image_br_G1, (1600, 1615), mask=image_br_G1)
+                    image2.paste(image_br_G1, (1690, 1615), mask=image_br_G1)
                 if base_findings_r == 2:
                     image_br_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 2.png')))
-                    image2.paste(image_br_G2, (1700, 1615), mask=image_br_G2)
+                    image2.paste(image_br_G2, (1680, 1615), mask=image_br_G2)
                 if base_findings_r == 3:
                     image_br_G3 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 3.png')))
-                    image2.paste(image_br_G3, (1104, 1615), mask=image_br_G3)
+                    image2.paste(image_br_G3, (1670, 1615), mask=image_br_G3)
                 if base_findings_r == 4:
                     image_br_G4 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 4.png')))
                     image2.paste(image_br_G4, (1104, 1615), mask=image_br_G4)
