@@ -249,7 +249,7 @@ def full_app(session_state):
                 draw = ImageDraw.Draw(image2)
                 if base_findings == 1:
                     image_bl_G1 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 1.png'))
-                    image2.paste(image_bl_G1, (500, 1610), mask=image_bl_G1)
+                    image2.paste(image_bl_G1, (495, 1615), mask=image_bl_G1)
                 if base_findings == 2:
                     image_bl_G2 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 2.png'))
                     image2.paste(image_bl_G2, (145, 958), mask=image_bl_G2)
