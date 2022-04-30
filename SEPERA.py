@@ -264,7 +264,7 @@ def full_app(session_state):
                     image2.paste(image_bl_G5, (495, 1615), mask=image_bl_G5)
 
                 if mid_findings == 1:
-                    image_ml_G1 = PIL.Image.open('Images/Mid 1.png')
+                    image_ml_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
                     image2.paste(image_ml_G1, (495, 958), mask=image_ml_G1) #606
                 if mid_findings == 2:
                     image_ml_G2 = PIL.Image.open('Images/Mid 2.png')
