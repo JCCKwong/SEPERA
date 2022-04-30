@@ -60,7 +60,7 @@ def full_app(session_state):
               Y patients had ssEPE')
 
     # Specify font size for annotated prostate diagram
-    font = ImageFont.truetype('Image/Font.ttf', 70)
+    font = ImageFont.truetype('Images/Font.ttf', 70)
 
     # Load saved items from Google Drive
     Model_location = st.secrets['SEPERA']
