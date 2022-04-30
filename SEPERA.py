@@ -19,7 +19,7 @@ import SessionState
 
 def main():
     st.title("SEPERA (Side-specific Extra-Prostatic Extension Risk Assessment)")
-    st.sidebar.image("Logo.png", use_column_width=True)
+    st.sidebar.image("Images/Logo.png", use_column_width=True)
     st.sidebar.header("Navigation")
     session_state = SessionState.get(button_id="", color_to_label={})
     PAGES = {
