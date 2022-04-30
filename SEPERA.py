@@ -362,7 +362,7 @@ def full_app(session_state):
                 st.set_option('deprecation.showPyplotGlobalUse', False)
 
                 shap_values = explainer.shap_values(pt_features)
-                shap.force_plot(0.3, shap_values, pt_features, features_list, text_rotation=10,  # features_list,
+                shap.force_plot(explainer.expected_value, shap_values, pt_features, features_list, text_rotation=10,  # features_list,
                                 matplotlib=True)
                 col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
                 plt.clf()
