@@ -47,12 +47,9 @@ def full_app(session_state):
     """
     )
 
-    st.header('Prostate Diagram')
-    st.write('Automatically updates based on individualized patient characteristics.')
-
-    st.header('See how you compare with the study population')
-    st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
-              Y patients had ssEPE')
+    col1, col2, col3 = st.beta_columns([2, 1.5, 0.5])
+    col1.header('Prostate Diagram')
+    col1.write('Automatically updates based on individualized patient characteristics.')
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('Images/Font.ttf', 80)
@@ -86,10 +83,11 @@ def full_app(session_state):
 
     # Load blank prostate as image objects from GitHub repository
     def load_images():
+        image = PIL.Image.open('Images/Circle.png')
         image2 = PIL.Image.open('Images/Prostate diagram.png')
-        return image2
+        return image, image2
 
-    image2 = load_images()
+    image, image2 = load_images()
 
     # Define choices and labels for feature inputs
     CHOICES = {0: 'No', 1: 'Yes'}
@@ -337,14 +335,22 @@ def full_app(session_state):
                 draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
                 draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
-    st.image(image2, use_column_width='auto')
+                col1.image(image2, use_column_width='auto')
 
-    left_prob = (model.predict_proba(pt_features)[:, 1]*100).round()
-    right_prob = (model.predict_proba(pt_features_r)[:, 1]*100).round()
-    st.header('Your Results')
-    st.subheader('Probability of RIGHT extraprostatic extension is {:} %.'.format(str(left_prob)[1:-2]))
-    st.subheader('Probability of LEFT extraprostatic extension is {:} %.'.format(str(right_prob)[1:-2]))
+                left_prob = str((model.predict_proba(pt_features)[:, 1]*100).round())[1:-2] + '%'
+                right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2] + '%'
 
+                col2.header('Your Results')
+                col2.write('Probability of RIGHT extraprostatic extension')
+
+                draw_left = ImageDraw.Draw(image)
+                draw_left.text((100, 100), left_prob, fill="white", font=font, align="center")
+                col3.image(image)
+                col2.write('Probability of LEFT extraprostatic extension is {:}%.'.format(str(right_prob)[1:-2]))
+
+    st.header('See how you compare with the study population')
+    st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
+                  Y patients had ssEPE')
 
 def about(session_state):
     st.markdown(
