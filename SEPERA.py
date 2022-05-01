@@ -345,10 +345,10 @@ def full_app(session_state):
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
                 col1.image(image2, use_column_width='auto')
 
-                left_prob = model.predict_proba(pt_features)[:, 1]*100
-                right_prob = model.predict_proba(pt_features_r)[:, 1]*100
-                col2.subheader('Probability of RIGHT extraprostatic extension is {:}%'.format(str(left_prob)))
-                col2.subheader('Probability of LEFT extraprostatic extension is {:}%'.format(str(right_prob)))
+                left_prob = (model.predict_proba(pt_features)[:, 1]*100).round()
+                right_prob = (model.predict_proba(pt_features_r)[:, 1]*100).round()
+                col2.subheader('Probability of RIGHT extraprostatic extension is {:}%'.format(str(left_prob)[1:-1]))
+                col2.subheader('Probability of LEFT extraprostatic extension is {:}%'.format(str(right_prob)[1:-1]))
 
 
 def about(session_state):
