@@ -341,7 +341,7 @@ def full_app(session_state):
                 right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2] + '%'
 
                 col2.header('Your Results')
-                col2.write('Probability of RIGHT extraprostatic extension')
+                col2.subheader('Probability of RIGHT extraprostatic extension')
 
                 draw_left = ImageDraw.Draw(image)
                 draw_left.text((75, 75), left_prob, fill="white", font=font, align="center")
