@@ -83,7 +83,7 @@ def full_app(session_state):
 
     # Load blank prostate as image objects from GitHub repository
     def load_images():
-        image = PIL.Image.open('Images/Circle.png')
+        image = PIL.Image.open('Images/Circle.png').convert('RGB')
         image2 = PIL.Image.open('Images/Prostate diagram.png')
         return image, image2
 
