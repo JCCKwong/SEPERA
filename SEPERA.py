@@ -345,8 +345,8 @@ def full_app(session_state):
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
                 col1.image(image2, use_column_width='auto')
 
-                left_prob = round(model.predict_proba(pt_features)[:, 1]*100)
-                right_prob = round(model.predict_proba(pt_features_r)[:, 1]*100)
+                left_prob = (model.predict_proba(pt_features)[:, 1]*100).round(0)
+                right_prob = (model.predict_proba(pt_features_r)[:, 1]*100).round(0)
                 col2.subheader('Probability of RIGHT extraprostatic extension is {:}%'.format(left_prob))
                 col2.subheader('Probability of LEFT extraprostatic extension is {:}%'.format(right_prob))
 
