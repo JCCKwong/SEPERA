@@ -47,13 +47,10 @@ def full_app(session_state):
     """
     )
 
-    # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
-    col1, col2 = st.columns([1, 1])
+    st.header('Prostate Diagram')
+    st.write('Automatically updates based on individualized patient characteristics.')
 
-    col1.header('Prostate Diagram')
-    col1.write('Automatically updates based on individualized patient characteristics.')
-
-    st.subheader('See how you compare with the study population')
+    st.header('See how you compare with the study population')
     st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
               Y patients had ssEPE')
 
@@ -340,13 +337,13 @@ def full_app(session_state):
                 draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
                 draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
-                col1.image(image2, use_column_width='auto')
+                st.image(image2, use_column_width='auto')
 
                 left_prob = (model.predict_proba(pt_features)[:, 1]*100).round()
                 right_prob = (model.predict_proba(pt_features_r)[:, 1]*100).round()
-                col2.header('Predictions')
-                col2.subheader('Probability of RIGHT extraprostatic extension is {:} %.'.format(str(left_prob)[1:-2]))
-                col2.subheader('Probability of LEFT extraprostatic extension is {:} %.'.format(str(right_prob)[1:-2]))
+                st.header('Your Results')
+                st.subheader('Probability of RIGHT extraprostatic extension is {:} %.'.format(str(left_prob)[1:-2]))
+                st.subheader('Probability of LEFT extraprostatic extension is {:} %.'.format(str(right_prob)[1:-2]))
 
 
 def about(session_state):
