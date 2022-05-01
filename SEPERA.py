@@ -83,7 +83,7 @@ def full_app(session_state):
 
     # Load blank prostate as image objects from GitHub repository
     def load_images():
-        image = PIL.Image.open('Images/Circle.png').convert('RGB')
+        image = PIL.Image.open('Images/Circle.png').convert('RGBA')
         image2 = PIL.Image.open('Images/Prostate diagram.png')
         return image, image2
 
@@ -344,7 +344,7 @@ def full_app(session_state):
                 col2.write('Probability of RIGHT extraprostatic extension')
 
                 draw_left = ImageDraw.Draw(image)
-                draw_left.text((100, 100), left_prob, fill="black", font=font, align="center")
+                draw_left.text((75, 75), left_prob, fill="white", font=font, align="center")
                 col3.image(image)
                 col2.write('Probability of LEFT extraprostatic extension is {:}%.'.format(str(right_prob)[1:-2]))
 
