@@ -241,19 +241,19 @@ def full_app(session_state):
                 # Set conditions to show colour coded site images based on Gleason Grade Group for each site
                 draw = ImageDraw.Draw(image2)
                 if base_findings == 1:
-                    image_bl_G1 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 1.png'))
+                    image_bl_G1 = PIL.Image.open('Images/Base 1.png')
                     image2.paste(image_bl_G1, (495, 1615), mask=image_bl_G1)
                 if base_findings == 2:
-                    image_bl_G2 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 2.png'))
+                    image_bl_G2 = PIL.Image.open('Images/Base 2.png')
                     image2.paste(image_bl_G2, (495, 1615), mask=image_bl_G2)
                 if base_findings == 3:
-                    image_bl_G3 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 3.png'))
+                    image_bl_G3 = PIL.Image.open('Images/Base 3.png')
                     image2.paste(image_bl_G3, (495, 1615), mask=image_bl_G3)
                 if base_findings == 4:
-                    image_bl_G4 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 4.png'))
+                    image_bl_G4 = PIL.Image.open('Images/Base 4.png')
                     image2.paste(image_bl_G4, (495, 1615), mask=image_bl_G4)
                 if base_findings == 5:
-                    image_bl_G5 = PIL.ImageOps.flip(PIL.Image.open('Images/Corner 5.png'))
+                    image_bl_G5 = PIL.Image.open('Images/Base 5.png')
                     image2.paste(image_bl_G5, (495, 1615), mask=image_bl_G5)
 
                 if mid_findings == 1:
@@ -273,35 +273,35 @@ def full_app(session_state):
                     image2.paste(image_ml_G5, (495, 965), mask=image_ml_G5)
 
                 if apex_findings == 1:
-                    image_al_G1 = PIL.Image.open('Images/Corner 1.png')
+                    image_al_G1 = PIL.Image.open('Images/Apex 1.png')
                     image2.paste(image_al_G1, (495, 187), mask=image_al_G1)
                 if apex_findings == 2:
-                    image_al_G2 = PIL.Image.open('Images/Corner 2.png')
+                    image_al_G2 = PIL.Image.open('Images/Apex 2.png')
                     image2.paste(image_al_G2, (495, 187), mask=image_al_G2)
                 if apex_findings == 3:
-                    image_al_G3 = PIL.Image.open('Images/Corner 3.png')
+                    image_al_G3 = PIL.Image.open('Images/Apex 3.png')
                     image2.paste(image_al_G3, (495, 187), mask=image_al_G3)
                 if apex_findings == 4:
-                    image_al_G4 = PIL.Image.open('Images/Corner 4.png')
+                    image_al_G4 = PIL.Image.open('Images/Apex 4.png')
                     image2.paste(image_al_G4, (495, 187), mask=image_al_G4)
                 if apex_findings == 5:
-                    image_al_G5 = PIL.Image.open('Images/Corner 5.png')
+                    image_al_G5 = PIL.Image.open('Images/Apex 5.png')
                     image2.paste(image_al_G5, (495, 187), mask=image_al_G5)
 
                 if base_findings_r == 1:
-                    image_br_G1 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 1.png')))
+                    image_br_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 1.png'))
                     image2.paste(image_br_G1, (1665, 1615), mask=image_br_G1)
                 if base_findings_r == 2:
-                    image_br_G2 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 2.png')))
+                    image_br_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 2.png'))
                     image2.paste(image_br_G2, (1665, 1615), mask=image_br_G2)
                 if base_findings_r == 3:
-                    image_br_G3 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 3.png')))
+                    image_br_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 3.png'))
                     image2.paste(image_br_G3, (1665, 1615), mask=image_br_G3)
                 if base_findings_r == 4:
-                    image_br_G4 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 4.png')))
+                    image_br_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 4.png'))
                     image2.paste(image_br_G4, (1665, 1615), mask=image_br_G4)
                 if base_findings_r == 5:
-                    image_br_G5 = PIL.ImageOps.flip(PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 5.png')))
+                    image_br_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 5.png'))
                     image2.paste(image_br_G5, (1665, 1615), mask=image_br_G5)
 
                 if mid_findings_r == 1:
@@ -321,19 +321,19 @@ def full_app(session_state):
                     image2.paste(image_mr_G5, (1665, 965), mask=image_mr_G5)
 
                 if apex_findings_r == 1:
-                    image_ar_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 1.png'))
+                    image_ar_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 1.png'))
                     image2.paste(image_ar_G1, (1665, 187), mask=image_ar_G1)
                 if apex_findings_r == 2:
-                    image_ar_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 2.png'))
+                    image_ar_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 2.png'))
                     image2.paste(image_ar_G2, (1665, 187), mask=image_ar_G2)
                 if apex_findings_r == 3:
-                    image_ar_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 3.png'))
+                    image_ar_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 3.png'))
                     image2.paste(image_ar_G3, (1665, 187), mask=image_ar_G3)
                 if apex_findings_r == 4:
-                    image_ar_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 4.png'))
+                    image_ar_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 4.png'))
                     image2.paste(image_ar_G4, (1665, 187), mask=image_ar_G4)
                 if apex_findings_r == 5:
-                    image_ar_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Corner 5.png'))
+                    image_ar_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 5.png'))
                     image2.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
 
                 # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
