@@ -33,7 +33,7 @@ def main():
 # ssEPE Tool Page
 def full_app(session_state):
     # Header text
-    st.subheader("Instructions")
+    st.header("Instructions")
     st.markdown(
         """
     1. Enter patient values on the left
@@ -50,11 +50,8 @@ def full_app(session_state):
     # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
     col1, col2 = st.columns([1, 1])
 
-    col1.subheader('Annotated Prostate')
-    col1.write('Automatically updates based on patient characteristics.')
-    #col2.subheader('SEPERA explanations')
-    #col2.write('The probability of side-specific extraprostatic extension for each lobe is indicated in **bold**. \
-    #Each plot highlights which features have the greatest impact on the predicted probability.')
+    col1.header('Prostate Diagram')
+    col1.write('Automatically updates based on individualized patient characteristics.')
 
     st.subheader('See how you compare with the study population')
     st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
@@ -347,6 +344,7 @@ def full_app(session_state):
 
                 left_prob = (model.predict_proba(pt_features)[:, 1]*100).round()
                 right_prob = (model.predict_proba(pt_features_r)[:, 1]*100).round()
+                col2.header('Predictions')
                 col2.subheader('Probability of RIGHT extraprostatic extension is {:} %.'.format(str(left_prob)[1:-2]))
                 col2.subheader('Probability of LEFT extraprostatic extension is {:} %.'.format(str(right_prob)[1:-2]))
 
