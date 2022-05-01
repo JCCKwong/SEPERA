@@ -47,7 +47,7 @@ def full_app(session_state):
     """
     )
 
-    col1, col2, col3 = st.beta_columns([2, 1.5, 0.5])
+    col1, col2, col3 = st.columns([2, 1.5, 0.5])
     col1.header('Prostate Diagram')
     col1.write('Automatically updates based on individualized patient characteristics.')
 
@@ -344,7 +344,7 @@ def full_app(session_state):
                 col2.write('Probability of RIGHT extraprostatic extension')
 
                 draw_left = ImageDraw.Draw(image)
-                draw_left.text((100, 100), left_prob, fill="white", font=font, align="center")
+                draw_left.text((100, 100), left_prob, fill="black", font=font, align="center")
                 col3.image(image)
                 col2.write('Probability of LEFT extraprostatic extension is {:}%.'.format(str(right_prob)[1:-2]))
 
