@@ -345,7 +345,7 @@ def full_app(session_state):
 
                 draw_left = ImageDraw.Draw(image)
                 draw_left.text((68, 82), left_prob, fill="white", font=font, align="center")
-                col3.markdown(""" """)
+                col3.text(" ")
                 col3.image(image)
                 col2.write('Probability of LEFT extraprostatic extension is {:}%.'.format(str(right_prob)[1:-2]))
 
