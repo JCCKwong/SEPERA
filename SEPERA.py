@@ -40,20 +40,21 @@ def full_app(session_state):
     1. Press submit button
     1. SEPERA will output the following:
         * Annotated prostate map showing location and severity of disease
-        * Probability of side-specific extraprostatic extension for the left and right prostatic lobe
+        * Probability of side-specific extraprostatic extension (tumour extending beyond the prostatic capsule) 
+        for the left and right prostatic lobe
         * Percentage of patients in our multi-institutional cohort with similar characteristics that had side-specific 
         extraprostatic extension
     """
     )
 
     # Create 2 columns, one to show SHAP plots, one to show annotated prostate diagram
-    col1, col2 = st.columns([1, 1.75])
+    col1, col2 = st.columns([1, 1])
 
     col1.subheader('Annotated Prostate')
     col1.write('Automatically updates based on patient characteristics.')
-    col2.subheader('SEPERA explanations')
-    col2.write('The probability of side-specific extraprostatic extension for each lobe is indicated in **bold**. \
-    Each plot highlights which features have the greatest impact on the predicted probability.')
+    #col2.subheader('SEPERA explanations')
+    #col2.write('The probability of side-specific extraprostatic extension for each lobe is indicated in **bold**. \
+    #Each plot highlights which features have the greatest impact on the predicted probability.')
 
     st.subheader('See how you compare with the study population')
     st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
@@ -72,8 +73,8 @@ def full_app(session_state):
         save_dest.mkdir(exist_ok=True)
         model_checkpoint = Path('model/SEPERA.pkl')
         feature_checkpoint = Path('model/Features.pkl')
-        explainer_checkpoint = Path('model/explainer.pkl')
-        shap_checkpoint = Path('model/model shap.pkl')
+        #explainer_checkpoint = Path('model/explainer.pkl')
+        #shap_checkpoint = Path('model/model shap.pkl')
 
         # download from Google Drive if model or features are not present
         if not model_checkpoint.exists():
@@ -85,17 +86,9 @@ def full_app(session_state):
 
         model = joblib.load(model_checkpoint)
         features = joblib.load(feature_checkpoint)
-        if not explainer_checkpoint.exists():
-            explainer = shap.TreeExplainer(model, np.array(features), model_output='probability')
-            joblib.dump(explainer, explainer_checkpoint)
-        explainer2 = joblib.load(explainer_checkpoint)
-        if not shap_checkpoint.exists():
-            model_shap = explainer2(features)
-            joblib.dump(model_shap, shap_checkpoint)
-        model_shap2 = joblib.load(shap_checkpoint)
-        return model, features, explainer2, model_shap2
+        return model, features
 
-    model, features, explainer, model_shap = load_items()
+    model, features = load_items()
 
     # Load blank prostate as image objects from GitHub repository
     def load_images():
@@ -351,29 +344,12 @@ def full_app(session_state):
                 draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
                 col1.image(image2, use_column_width='auto')
-                col1.write('**Red bars**: Features that ***increase*** the risk of ssEPE  \n'
-                           '**Blue bars**: Features that ***decrease*** the risk of ssEPE  \n'
-                           '**Width of bars**: Importance of the feature. The wider it is, the greater impact it has '
-                           'on risk of ssEPE')
 
-                ### SHAP FORCE PLOTS ###
-                # SHAP plot for left lobe
-                col2.subheader('Left lobe')
-                st.set_option('deprecation.showPyplotGlobalUse', False)
+                left_prob = round(model.predict_proba(pt_features)[:, 1]*100)
+                right_prob = round(model.predict_proba(pt_features_r)[:, 1]*100)
+                col2.subheader('Probability of RIGHT extraprostatic extension is {:}%'.format(left_prob))
+                col2.subheader('Probability of LEFT extraprostatic extension is {:}%'.format(right_prob))
 
-                shap_values = explainer.shap_values(pt_features)
-                shap.force_plot(0.285, shap_values, pt_features, features_list, text_rotation=10,  # features_list,
-                                matplotlib=True)
-                col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                plt.clf()
-
-                # SHAP plot for right lobe
-                col2.subheader('Right lobe')
-                shap_values_r = explainer.shap_values(pt_features_r)
-                shap.plots.force(0.285, shap_values_r, pt_features_r, features_list, matplotlib=True,
-                                 text_rotation=10)
-                col2.pyplot(bbox_inches='tight', dpi=600, pad_inches=0, use_column_width='auto')
-                plt.clf()
 
 def about(session_state):
     st.markdown(
