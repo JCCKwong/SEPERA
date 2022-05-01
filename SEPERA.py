@@ -347,8 +347,8 @@ def full_app(session_state):
 
                 left_prob = (model.predict_proba(pt_features)[:, 1]*100).round()
                 right_prob = (model.predict_proba(pt_features_r)[:, 1]*100).round()
-                col2.subheader('Probability of RIGHT extraprostatic extension is {:}%'.format(str(left_prob)[1:-2]))
-                col2.subheader('Probability of LEFT extraprostatic extension is {:}%'.format(str(right_prob)[1:-1]))
+                col2.subheader('Probability of RIGHT extraprostatic extension is {:} %.'.format(str(left_prob)[1:-2]))
+                col2.subheader('Probability of LEFT extraprostatic extension is {:} %.'.format(str(right_prob)[1:-2]))
 
 
 def about(session_state):
