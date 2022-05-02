@@ -111,7 +111,7 @@ def full_app(session_state):
             age = st.number_input("Age (years)", 0, 100, 72)
             psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 11.00)
             vol = st.number_input("Prostate volume (ml)", 0.0, 300.0, 40.0)
-            p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 20.0)
+            p_high = st.number_input("% Gleason pattern 4/5", 0.00, 100.00, 20.00)
             perineural_inv = st.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                           format_func=format_func_yn, index=1)
 
