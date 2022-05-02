@@ -334,7 +334,7 @@ def full_app(session_state):
                 draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
                 draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
-    st.image(image2, use_column_width='auto')
+    st.image(image2, width=600, use_column_width='auto')
 
     left_prob = str((model.predict_proba(pt_features)[:, 1]*100).round())[1:-2]
     right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2]
