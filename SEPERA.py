@@ -42,8 +42,6 @@ def full_app(session_state):
         * Annotated prostate map showing location and severity of disease
         * Probability of side-specific extraprostatic extension (tumour extending beyond the prostatic capsule) 
         for the left and right prostatic lobe
-        * Percentage of patients in our multi-institutional cohort with similar characteristics that had side-specific 
-        extraprostatic extension
     """
     )
 
