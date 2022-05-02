@@ -382,8 +382,10 @@ def about(session_state):
     UHN, THP, IMM, JB = st.columns([1, 1, 1, 1])
     UHN.image("Images/UHN.png", width=400, caption="University Health Network, Toronto, Ontario, Canada")
     THP.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
-    IMM.image("Images/IMM.png", width=250, caption="L'Institut Mutualiste Montsouris, Paris, France")
-    JB.image("Images/JB.png", width=200, caption="Jules Bordet Institute, Brussels, Belgium")
+    IMM.image("Images/IMM.png", width=250)
+    IMM.caption("L'Institut Mutualiste Montsouris, Paris, France")
+    JB.image("Images/JB.png", width=200)
+    JB.caption("Jules Bordet Institute, Brussels, Belgium")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="SEPERA - Side-Specific Extra-Prostatic Extension Risk Assessment",
