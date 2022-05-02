@@ -383,11 +383,9 @@ def about(session_state):
     st.write("""""")
     st.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
     st.write("""""")
-    st.image("Images/IMM.png", width=400)
-    st.caption("L'Institut Mutualiste Montsouris, Paris, France")
+    st.image("Images/IMM.png", width=400, caption="L'Institut Mutualiste Montsouris, Paris, France")
     st.write("""""")
-    st.image("Images/JB.png", width=400)
-    st.caption("Jules Bordet Institute, Brussels, Belgium")
+    st.image("Images/JB.png", width=400, caption="Jules Bordet Institute, Brussels, Belgium")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="SEPERA - Side-Specific Extra-Prostatic Extension Risk Assessment",
