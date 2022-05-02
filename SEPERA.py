@@ -350,10 +350,9 @@ def about(session_state):
     cancer:
     * Annotated prostate diagram showing location and severity of disease based on prostate biopsy
     * Probability of side-specific extraprostatic extension for the left and right prostatic lobe
-    * Comparison of individual patient characteristics to the study population used to create SEPERA
     """
     )
-    st.subheader("Reference")
+    st.header("Reference")
     st.markdown(
         """
     **Development, multi-institutional validation, and algorithmic audit of SEPERA - An artificial intelligence-based 
@@ -379,6 +378,11 @@ def about(session_state):
     For more information, the full manuscript is available [here] (#).
     """
     )
+    st.header("Contributing Institutions")
+    st.image("Images/UHN.png", width=300, caption="University Health Network, Toronto, Ontario, Canada")
+    st.image("Images/THP.png", width=300, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
+    st.image("Images/IMM.png", width=300, caption="L'Institut Mutualiste Montsouris, Paris, France")
+    st.image("Images/JB.png", width=300, caption="Jules Bordet Institute, Brussels, Belgium")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="SEPERA - Side-Specific Extra-Prostatic Extension Risk Assessment",
