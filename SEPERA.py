@@ -22,10 +22,9 @@ def main():
     st.sidebar.image("Images/Logo.png", use_column_width=True)
     st.sidebar.header("Navigation")
     session_state = SessionState.get(button_id="", color_to_label={})
-    PAGES = {
-        "SEPERA": full_app,
-        "About": about
-    }
+    PAGES = {"SEPERA": full_app,
+             "About": about
+             }
     page = st.sidebar.selectbox("", options=list(PAGES.keys()))
     PAGES[page](session_state)
 
