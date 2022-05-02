@@ -108,39 +108,39 @@ def full_app(session_state):
     with st.sidebar:
         with st.form(key="my_form"):
             st.subheader("General information")
-            age = st.number_input("Age (years)", 0, 100, 60)
-            psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 7.00)
+            age = st.number_input("Age (years)", 0, 100, 72)
+            psa = st.number_input("PSA (ng/ml)", 0.00, 200.00, 11.00)
             vol = st.number_input("Prostate volume (ml)", 0.0, 300.0, 40.0)
-            p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 22.5)
+            p_high = st.number_input("% Gleason pattern 4/5", 0.0, 100.00, 20)
             perineural_inv = st.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                           format_func=format_func_yn, index=1)
 
             st.subheader("Left-sided biopsy information")
             base_findings = st.selectbox('Left base findings', options=list(G_CHOICES.keys()),
                                          format_func=format_func_gleason, index=3)
-            base_p_inv = st.number_input('Left base % core involvement (0 to 100)', 0.0, 100.0, value=7.5)
+            base_p_inv = st.number_input('Left base % core involvement (0 to 100)', 0.0, 100.0, value=30.0)
             mid_findings = st.selectbox('Left mid findings', options=list(G_CHOICES.keys()),
                                         format_func=format_func_gleason,
                                         index=3)
             mid_p_inv = st.number_input('Left mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0)
             apex_findings = st.selectbox('Left apex findings', options=list(G_CHOICES.keys()),
-                                         format_func=format_func_gleason, index=0)
-            apex_p_inv = st.number_input('Left apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0)
-            pos_core = st.number_input('Left # of positive cores', 0, 30, 3)
+                                         format_func=format_func_gleason, index=2)
+            apex_p_inv = st.number_input('Left apex % core involvement (0 to 100)', 0.0, 100.0, value=100.0)
+            pos_core = st.number_input('Left # of positive cores', 0, 30, 5)
             taken_core = st.number_input('Left # of cores taken', 0, 30, 6)
 
             st.subheader("Right-sided biopsy information")
             base_findings_r = st.selectbox('Right base findings', options=list(G_CHOICES.keys()),
-                                           format_func=format_func_gleason, index=5)
-            base_p_inv_r = st.number_input('Right base % core involvement (0 to 100)', 0.0, 100.0, value=45.0)
+                                           format_func=format_func_gleason, index=1)
+            base_p_inv_r = st.number_input('Right base % core involvement (0 to 100)', 0.0, 100.0, value=5.0)
             mid_findings_r = st.selectbox('Right mid findings', options=list(G_CHOICES.keys()),
-                                          format_func=format_func_gleason, index=4)
-            mid_p_inv_r = st.number_input('Right mid % core involvement (0 to 100)', 0.0, 100.0, value=45.0)
+                                          format_func=format_func_gleason, index=1)
+            mid_p_inv_r = st.number_input('Right mid % core involvement (0 to 100)', 0.0, 100.0, value=10.0)
             apex_findings_r = st.selectbox('Right apex findings', options=list(G_CHOICES.keys()),
-                                           format_func=format_func_gleason, index=3)
-            apex_p_inv_r = st.number_input('Right apex % core involvement (0 to 100)', 0.0, 100.0, value=20.0)
-            pos_core_r = st.number_input('Left # of positive cores', 0, 30, 5)
-            taken_core_r = st.number_input('Left # of cores taken', 0, 30, 8)
+                                           format_func=format_func_gleason, index=0)
+            apex_p_inv_r = st.number_input('Right apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0)
+            pos_core_r = st.number_input('Left # of positive cores', 0, 30, 2)
+            taken_core_r = st.number_input('Left # of cores taken', 0, 30, 6)
 
             submitted = st.form_submit_button(label='Submit')
 
