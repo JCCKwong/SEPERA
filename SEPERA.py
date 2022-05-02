@@ -185,8 +185,141 @@ def page_sepera():
                          }
 
             pt_features_r = pd.DataFrame(pt_data_r, index=[0])
-            
-            st.write("Data entered")
+
+            ### ANNOTATED PROSTATE DIAGRAM ###
+            # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
+            base_L = str(G_CHOICES[base_findings]) + '\n' \
+                     + '% core involvement: ' + str(base_p_inv)
+            mid_L = str(G_CHOICES[mid_findings]) + '\n' \
+                    + '% core involvement: ' + str(mid_p_inv)
+            apex_L = str(G_CHOICES[apex_findings]) + '\n' \
+                     + '% core involvement: ' + str(apex_p_inv)
+            base_R = str(G_CHOICES[base_findings_r]) + '\n' \
+                     + '% core involvement: ' + str(base_p_inv_r)
+            mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
+                    + '% core involvement: ' + str(mid_p_inv_r)
+            apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
+                     + '% core involvement: ' + str(apex_p_inv_r)
+
+            # Set conditions to show colour coded site images based on Gleason Grade Group for each site
+            draw = ImageDraw.Draw(image)
+            if base_findings == 1:
+                image_bl_G1 = PIL.Image.open('Images/Base 1.png').convert('RGBA')
+                image.paste(image_bl_G1, (495, 1615), mask=image_bl_G1)
+            if base_findings == 2:
+                image_bl_G2 = PIL.Image.open('Images/Base 2.png').convert('RGBA')
+                image.paste(image_bl_G2, (495, 1615), mask=image_bl_G2)
+            if base_findings == 3:
+                image_bl_G3 = PIL.Image.open('Images/Base 3.png').convert('RGBA')
+                image.paste(image_bl_G3, (495, 1615), mask=image_bl_G3)
+            if base_findings == 4:
+                image_bl_G4 = PIL.Image.open('Images/Base 4.png').convert('RGBA')
+                image.paste(image_bl_G4, (495, 1615), mask=image_bl_G4)
+            if base_findings == 5:
+                image_bl_G5 = PIL.Image.open('Images/Base 5.png').convert('RGBA')
+                image.paste(image_bl_G5, (495, 1615), mask=image_bl_G5)
+
+            if mid_findings == 1:
+                image_ml_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
+                image.paste(image_ml_G1, (495, 965), mask=image_ml_G1)  # 606
+            if mid_findings == 2:
+                image_ml_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
+                image.paste(image_ml_G2, (495, 965), mask=image_ml_G2)
+            if mid_findings == 3:
+                image_ml_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
+                image.paste(image_ml_G3, (495, 965), mask=image_ml_G3)
+            if mid_findings == 4:
+                image_ml_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
+                image.paste(image_ml_G4, (495, 965), mask=image_ml_G4)
+            if mid_findings == 5:
+                image_ml_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
+                image.paste(image_ml_G5, (495, 965), mask=image_ml_G5)
+
+            if apex_findings == 1:
+                image_al_G1 = PIL.Image.open('Images/Apex 1.png').convert('RGBA')
+                image.paste(image_al_G1, (495, 187), mask=image_al_G1)
+            if apex_findings == 2:
+                image_al_G2 = PIL.Image.open('Images/Apex 2.png').convert('RGBA')
+                image.paste(image_al_G2, (495, 187), mask=image_al_G2)
+            if apex_findings == 3:
+                image_al_G3 = PIL.Image.open('Images/Apex 3.png').convert('RGBA')
+                image.paste(image_al_G3, (495, 187), mask=image_al_G3)
+            if apex_findings == 4:
+                image_al_G4 = PIL.Image.open('Images/Apex 4.png').convert('RGBA')
+                image.paste(image_al_G4, (495, 187), mask=image_al_G4)
+            if apex_findings == 5:
+                image_al_G5 = PIL.Image.open('Images/Apex 5.png').convert('RGBA')
+                image.paste(image_al_G5, (495, 187), mask=image_al_G5)
+
+            if base_findings_r == 1:
+                image_br_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 1.png')).convert('RGBA')
+                image.paste(image_br_G1, (1665, 1615), mask=image_br_G1)
+            if base_findings_r == 2:
+                image_br_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 2.png')).convert('RGBA')
+                image.paste(image_br_G2, (1665, 1615), mask=image_br_G2)
+            if base_findings_r == 3:
+                image_br_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 3.png')).convert('RGBA')
+                image.paste(image_br_G3, (1665, 1615), mask=image_br_G3)
+            if base_findings_r == 4:
+                image_br_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 4.png')).convert('RGBA')
+                image.paste(image_br_G4, (1665, 1615), mask=image_br_G4)
+            if base_findings_r == 5:
+                image_br_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 5.png')).convert('RGBA')
+                image.paste(image_br_G5, (1665, 1615), mask=image_br_G5)
+
+            if mid_findings_r == 1:
+                image_mr_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
+                image.paste(image_mr_G1, (1665, 965), mask=image_mr_G1)
+            if mid_findings_r == 2:
+                image_mr_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
+                image.paste(image_mr_G2, (1665, 965), mask=image_mr_G2)
+            if mid_findings_r == 3:
+                image_mr_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
+                image.paste(image_mr_G3, (1665, 965), mask=image_mr_G3)
+            if mid_findings_r == 4:
+                image_mr_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
+                image.paste(image_mr_G4, (1665, 965), mask=image_mr_G4)
+            if mid_findings_r == 5:
+                image_mr_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
+                image.paste(image_mr_G5, (1665, 965), mask=image_mr_G5)
+
+            if apex_findings_r == 1:
+                image_ar_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 1.png')).convert('RGBA')
+                image.paste(image_ar_G1, (1665, 187), mask=image_ar_G1)
+            if apex_findings_r == 2:
+                image_ar_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 2.png')).convert('RGBA')
+                image.paste(image_ar_G2, (1665, 187), mask=image_ar_G2)
+            if apex_findings_r == 3:
+                image_ar_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 3.png')).convert('RGBA')
+                image.paste(image_ar_G3, (1665, 187), mask=image_ar_G3)
+            if apex_findings_r == 4:
+                image_ar_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 4.png')).convert('RGBA')
+                image.paste(image_ar_G4, (1665, 187), mask=image_ar_G4)
+            if apex_findings_r == 5:
+                image_ar_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 5.png')).convert('RGBA')
+                image.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
+
+            # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
+            draw.text((655, 1920), base_L, fill="black", font=font, align="center")
+            draw.text((655, 1190), mid_L, fill="black", font=font, align="center")
+            draw.text((735, 545), apex_L, fill="black", font=font, align="center")
+            draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
+            draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
+            draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
+
+            col4, col5 = st.columns([1, 2])
+            left_prob = str((model.predict_proba(pt_features)[:, 1] * 100).round())[1:-2]
+            right_prob = str((model.predict_proba(pt_features_r)[:, 1] * 100).round())[1:-2]
+
+            col4.header('*Your Results*')
+            col4.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
+            col4.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
+
+            col5.header('Prostate Diagram')
+            col5.write('Automatically updates based on individualized patient characteristics.')
+            col5.image(image, use_column_width=True)
+
+
 
 
 
