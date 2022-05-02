@@ -58,31 +58,23 @@ def full_app(session_state):
         save_dest = Path('model')
         save_dest.mkdir(exist_ok=True)
         model_checkpoint = Path('model/SEPERA.pkl')
-        feature_checkpoint = Path('model/Features.pkl')
-        #explainer_checkpoint = Path('model/explainer.pkl')
-        #shap_checkpoint = Path('model/model shap.pkl')
 
         # download from Google Drive if model or features are not present
         if not model_checkpoint.exists():
             with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
                 gdd.download_file_from_google_drive(Model_location, model_checkpoint)
-        if not feature_checkpoint.exists():
-            with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-                gdd.download_file_from_google_drive(Feature_location, feature_checkpoint)
 
         model = joblib.load(model_checkpoint)
-        features = joblib.load(feature_checkpoint)
-        return model, features
+        return model
 
-    model, features = load_items()
+    model = load_items()
 
     # Load blank prostate as image objects from GitHub repository
     def load_images():
-        image = PIL.Image.open('Images/Circle.png').convert('RGBA')
         image2 = PIL.Image.open('Images/Prostate diagram.png')
-        return image, image2
+        return image2
 
-    image, image2 = load_images()
+    image2 = load_images()
 
     # Define choices and labels for feature inputs
     CHOICES = {0: 'No', 1: 'Yes'}
