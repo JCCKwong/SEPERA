@@ -24,7 +24,7 @@ def main():
     st.title("SEPERA (Side-specific Extra-Prostatic Extension Risk Assessment)")
     st.sidebar.image("Images/Logo.png", use_column_width=True)
     st.sidebar.header("Navigation")
-    page = st.sidebar.button("", tuple(PAGES.keys()), format_func=str.capitalize)
+    page = st.sidebar.button("", tuple(PAGES.keys()))
 
     PAGES[page]()
 
