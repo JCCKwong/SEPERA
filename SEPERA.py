@@ -95,7 +95,7 @@ def full_app(session_state):
     def format_func_yn(option):
         return CHOICES[option]
 
-    G_CHOICES = {0: 'Benign',
+    G_CHOICES = {0: 'Normal',
                  1: 'ISUP Grade 1',
                  2: 'ISUP Grade 2',
                  3: 'ISUP Grade 3',
