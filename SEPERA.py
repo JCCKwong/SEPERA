@@ -311,7 +311,7 @@ def page_sepera():
             left_prob = str((model.predict_proba(pt_features)[:, 1] * 100).round())[1:-2]
             right_prob = str((model.predict_proba(pt_features_r)[:, 1] * 100).round())[1:-2]
 
-            col4.header('<u>Your Results</u>', unsafe_allow_html=True)
+            col4.header('Your Results')
             col4.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
             col4.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
 
