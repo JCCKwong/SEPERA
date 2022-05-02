@@ -9,7 +9,9 @@ import numpy as np
 import PIL.Image
 import streamlit as st
 import joblib
+from pathlib import Path
 from PIL import ImageFont, ImageDraw, ImageOps
+from google_drive_downloader import GoogleDriveDownloader as gdd
 from persist import persist, load_widget_state
 
 def main():
@@ -22,7 +24,7 @@ def main():
     st.title("SEPERA (Side-specific Extra-Prostatic Extension Risk Assessment)")
     st.sidebar.image("Images/Logo.png", use_column_width=True)
     st.sidebar.header("Navigation")
-    page = st.sidebar.radio("Navigation", tuple(PAGES.keys()), format_func=str.capitalize)
+    page = st.sidebar.radio("", tuple(PAGES.keys()), format_func=str.capitalize)
 
     PAGES[page]()
 
@@ -31,7 +33,7 @@ def page_sepera():
     st.header("Instructions")
     st.markdown(
         """
-    1. Enter patient values on the left
+    1. Enter patient information below
     1. Press submit button
     1. SEPERA will output the following:
         * Annotated prostate map showing location and severity of disease
@@ -39,6 +41,155 @@ def page_sepera():
         for the left and right prostatic lobe
     """
     )
+
+    # Specify font size for annotated prostate diagram
+    font = ImageFont.truetype('Images/Font.ttf', 80)
+
+    # Load saved items from Google Drive
+    Model_location = st.secrets['SEPERA']
+
+    @st.cache(allow_output_mutation=True)
+    def load_items():
+        save_dest = Path('model')
+        save_dest.mkdir(exist_ok=True)
+        model_checkpoint = Path('model/SEPERA.pkl')
+
+        # download from Google Drive if model or features are not present
+        if not model_checkpoint.exists():
+            with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+                gdd.download_file_from_google_drive(Model_location, model_checkpoint)
+
+        model = joblib.load(model_checkpoint)
+        return model
+
+    model = load_items()
+
+    # Load blank prostate as image objects from GitHub repository
+    def load_images():
+        image = PIL.Image.open('Images/Prostate diagram.png')
+        return image
+
+    image = load_images()
+
+    # Define choices and labels for feature inputs
+    CHOICES = {0: 'No', 1: 'Yes'}
+
+    def format_func_yn(option):
+        return CHOICES[option]
+
+    G_CHOICES = {0: 'Normal',
+                 1: 'ISUP Grade 1',
+                 2: 'ISUP Grade 2',
+                 3: 'ISUP Grade 3',
+                 4: 'ISUP Grade 4',
+                 5: 'ISUP Grade 5'}
+
+    def format_func_gleason(option):
+        return G_CHOICES[option]
+
+    # Input individual values in sidebar
+    st.header("Enter patient information")
+    col1, col2, col3 = st.columns([1, 1, 1])
+
+    with st.form(key="my_form"):
+        col1.subheader("General information")
+        age = col1.number_input("Age (years)", 0, 100, 72, key=1)
+        psa = col1.number_input("PSA (ng/ml)", 0.00, 200.00, 11.00, key=2)
+        vol = col1.number_input("Prostate volume (ml)", 0.0, 300.0, 40.0, key=3)
+        p_high = col1.number_input("% Gleason pattern 4/5", 0.00, 100.00, 20.00, key=4)
+        perineural_inv = col1.selectbox("Perineural invasion", options=list(CHOICES.keys()),
+                                      format_func=format_func_yn, index=1)
+
+        col2.subheader("Left-sided biopsy information")
+        base_findings = col2.selectbox('Left base findings', options=list(G_CHOICES.keys()),
+                                     format_func=format_func_gleason, index=3)
+        base_p_inv = col2.number_input('Left base % core involvement (0 to 100)', 0.0, 100.0, value=30.0, key=5)
+        mid_findings = col2.selectbox('Left mid findings', options=list(G_CHOICES.keys()),
+                                    format_func=format_func_gleason,
+                                    index=3)
+        mid_p_inv = col2.number_input('Left mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=6)
+        apex_findings = col2.selectbox('Left apex findings', options=list(G_CHOICES.keys()),
+                                     format_func=format_func_gleason, index=2)
+        apex_p_inv = col2.number_input('Left apex % core involvement (0 to 100)', 0.0, 100.0, value=100.0, key=7)
+        pos_core = col2.number_input('Left # of positive cores', 0, 30, 5, key=8)
+        taken_core = col2.number_input('Left # of cores taken', 0, 30, 6, key=9)
+
+        col3.subheader("Right-sided biopsy information")
+        base_findings_r = col3.selectbox('Right base findings', options=list(G_CHOICES.keys()),
+                                       format_func=format_func_gleason, index=1)
+        base_p_inv_r = col3.number_input('Right base % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=10)
+        mid_findings_r = col3.selectbox('Right mid findings', options=list(G_CHOICES.keys()),
+                                      format_func=format_func_gleason, index=1)
+        mid_p_inv_r = col3.number_input('Right mid % core involvement (0 to 100)', 0.0, 100.0, value=10.0, key=11)
+        apex_findings_r = col3.selectbox('Right apex findings', options=list(G_CHOICES.keys()),
+                                       format_func=format_func_gleason, index=0)
+        apex_p_inv_r = col3.number_input('Right apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=12)
+        pos_core_r = col3.number_input('Left # of positive cores', 0, 30, 2, key=13)
+        taken_core_r = col3.number_input('Left # of cores taken', 0, 30, 6, key=14)
+
+        submitted = st.form_submit_button(label='Submit')
+
+        if submitted:
+            ### LEFT DATA STORAGE ###
+            # Group site findings into a list
+            gleason_t = [base_findings, mid_findings, apex_findings]
+
+            # Group % core involvements at each site into a list
+            p_inv_t = [base_p_inv, mid_p_inv, apex_p_inv]
+
+            # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason
+            # then descending % core involvement
+            g_p_inv = pd.DataFrame({'Gleason': gleason_t, '% core involvement': p_inv_t})
+            sort_g_p_inv = g_p_inv.sort_values(by=['Gleason', '% core involvement'], ascending=False)
+
+            # Store a dictionary into a variable
+            pt_data = {'Age at Biopsy': age,
+                       'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
+                       'PSA density': psa / vol,
+                       'Perineural invasion': perineural_inv,
+                       '% positive cores': (pos_core / taken_core) * 100,
+                       '% Gleason pattern 4/5': p_high,
+                       'Max % core involvement': sort_g_p_inv['% core involvement'].max(),
+                       'Base finding': base_findings,
+                       'Base % core involvement': base_p_inv,
+                       'Mid % core involvement': mid_p_inv,
+                       'Apex % core involvement': apex_p_inv
+                       }
+
+            pt_features = pd.DataFrame(pt_data, index=[0])
+
+            ### RIGHT DATA STORAGE ###
+            # Group site findings into a list
+            gleason_t_r = [base_findings_r, mid_findings_r, apex_findings_r]
+
+            # Group % core involvements at each site into a list
+            p_inv_t_r = [base_p_inv_r, mid_p_inv_r, apex_p_inv_r]
+
+            # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason
+            # then descending % core involvement
+            g_p_inv_r = pd.DataFrame({'Gleason': gleason_t_r, '% core involvement': p_inv_t_r})
+            sort_g_p_inv_r = g_p_inv_r.sort_values(by=['Gleason', '% core involvement'], ascending=False)
+
+            # Store a dictionary into a variable
+            pt_data_r = {'Age at Biopsy': age,
+                         'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
+                         'PSA density': psa / vol,
+                         'Perineural invasion': perineural_inv,
+                         '% positive cores': (pos_core_r / taken_core_r) * 100,
+                         '% Gleason pattern 4/5': p_high,
+                         'Max % core involvement': sort_g_p_inv_r['% core involvement'].max(),
+                         'Base finding': base_findings_r,
+                         'Base % core involvement': base_p_inv_r,
+                         'Mid % core involvement': mid_p_inv_r,
+                         'Apex % core involvement': apex_p_inv_r
+                         }
+
+            pt_features_r = pd.DataFrame(pt_data_r, index=[0])
+            
+            st.write("Data entered")
+
+
+
 
 
 def page_about():
