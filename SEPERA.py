@@ -383,10 +383,10 @@ def about(session_state):
     st.write("""""")
     st.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
     st.write("""""")
-    st.image("Images/IMM.png", width=240)
+    st.image("Images/IMM.png", width=400)
     st.caption("L'Institut Mutualiste Montsouris, Paris, France")
     st.write("""""")
-    st.image("Images/JB.png", width=185)
+    st.image("Images/JB.png", width=400)
     st.caption("Jules Bordet Institute, Brussels, Belgium")
 
 if __name__ == "__main__":
