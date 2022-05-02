@@ -384,7 +384,7 @@ def about(session_state):
     THP.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
     IMM.image("Images/IMM.png", width=240)
     IMM.caption("L'Institut Mutualiste Montsouris, Paris, France")
-    JB.image("Images/JB.png", width=170)
+    JB.image("Images/JB.png", width=180)
     JB.caption("Jules Bordet Institute, Brussels, Belgium")
 
 if __name__ == "__main__":
