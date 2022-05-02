@@ -379,6 +379,7 @@ def about(session_state):
     """
     )
     st.header("Contributing Institutions")
+    st.write("""""")
     st.image("Images/UHN.png", width=400, caption="University Health Network, Toronto, Ontario, Canada")
     st.write("""""")
     st.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
