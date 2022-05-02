@@ -47,7 +47,7 @@ def full_app(session_state):
     """
     )
 
-    col1, col2 = st.columns([1, 1])
+    col1, col2 = st.columns([1, 2])
     col1.header('Prostate Diagram')
     col1.write('Automatically updates based on individualized patient characteristics.')
 
@@ -341,12 +341,8 @@ def full_app(session_state):
                 right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2] + '%'
 
                 col2.header('Your Results')
-                col2.subheader('Probability of RIGHT extraprostatic extension')
-
-                draw_left = ImageDraw.Draw(image)
-                draw_left.text((68, 82), left_prob, fill="white", font=font, align="center")
-                col2.image(image)
-                col2.write('Probability of LEFT extraprostatic extension is {:}%.'.format(str(right_prob)[1:-2]))
+                col2.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
+                col2.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
 
     st.header('See how you compare with the study population')
     st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
