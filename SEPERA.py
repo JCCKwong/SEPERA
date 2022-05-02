@@ -47,9 +47,8 @@ def full_app(session_state):
     """
     )
 
-    col1, col2 = st.columns([1, 2])
-    col1.header('Prostate Diagram')
-    col1.write('Automatically updates based on individualized patient characteristics.')
+    st.header('Prostate Diagram')
+    st.write('Automatically updates based on individualized patient characteristics.')
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('Images/Font.ttf', 80)
@@ -337,16 +336,12 @@ def full_app(session_state):
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
                 col1.image(image2, use_column_width='auto')
 
-                left_prob = str((model.predict_proba(pt_features)[:, 1]*100).round())[1:-2]
-                right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2]
+    left_prob = str((model.predict_proba(pt_features)[:, 1]*100).round())[1:-2]
+    right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2]
 
-                col2.header('Your Results')
-                col2.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
-                col2.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
-
-    st.header('See how you compare with the study population')
-    st.write('From our study cohort, X patients had the similar characteristics as you. Of these patients, \
-                  Y patients had ssEPE')
+    st.header('Your Results')
+    st.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
+    st.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
 
 def about(session_state):
     st.markdown(
