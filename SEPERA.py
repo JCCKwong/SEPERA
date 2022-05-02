@@ -47,8 +47,9 @@ def full_app(session_state):
     """
     )
 
-    st.header('Prostate Diagram')
-    st.write('Automatically updates based on individualized patient characteristics.')
+    col1 = st.columns([1])
+    col1.header('Prostate Diagram')
+    col1.write('Automatically updates based on individualized patient characteristics.')
 
     # Specify font size for annotated prostate diagram
     font = ImageFont.truetype('Images/Font.ttf', 80)
@@ -334,14 +335,14 @@ def full_app(session_state):
                 draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
                 draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
                 draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
-                st.image(image2, width=600)
+                col1.image(image2, use_column_width='auto')
 
                 left_prob = str((model.predict_proba(pt_features)[:, 1]*100).round())[1:-2]
                 right_prob = str((model.predict_proba(pt_features_r)[:, 1]*100).round())[1:-2]
 
-                st.header('Your Results')
-                st.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
-                st.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
+                col1.header('Your Results')
+                col1.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
+                col1.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
 
 def about(session_state):
     st.markdown(
