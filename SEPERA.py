@@ -382,9 +382,7 @@ def about(session_state):
     st.image("Images/UHN.png", width=400, caption="University Health Network, Toronto, Ontario, Canada")
     st.write("""""")
     st.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
-    st.write("""""")
     st.image("Images/IMM.png", width=400, caption="L'Institut Mutualiste Montsouris, Paris, France")
-    st.write("""""")
     st.image("Images/JB.png", width=400, caption="Jules Bordet Institute, Brussels, Belgium")
 
 if __name__ == "__main__":
