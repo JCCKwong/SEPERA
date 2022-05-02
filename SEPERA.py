@@ -51,7 +51,6 @@ def full_app(session_state):
 
     # Load saved items from Google Drive
     Model_location = st.secrets['SEPERA']
-    Feature_location = st.secrets['Feature']
 
     @st.cache(allow_output_mutation=True)
     def load_items():
