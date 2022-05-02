@@ -392,7 +392,7 @@ def about(session_state):
 
 if __name__ == "__main__":
     st.set_page_config(page_title="SEPERA - Side-Specific Extra-Prostatic Extension Risk Assessment",
-                       page_icon="➰",
+                       page_icon=":curly_loop:",
                        layout="wide",
                        initial_sidebar_state="expanded"
                        )
