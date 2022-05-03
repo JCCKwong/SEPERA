@@ -36,10 +36,10 @@ def page_sepera():
     1. Enter your information on the right
         * All fields are required
         * If there is missing information, please enter -1 or Unknown for the missing fields
-    1. Press submit button
+    1. Press the SUBMIT button
     1. SEPERA will output the following:
-        * Annotated prostate map showing location and severity of disease
         * Probability of side-specific extraprostatic extension (tumour extending beyond the prostatic capsule) for the left and right prostatic lobe
+        * Annotated prostate map showing location and severity of disease
     """
     )
 
@@ -133,7 +133,7 @@ def page_sepera():
         pos_core_r = col3.number_input('Left # of positive cores', -1, 30, 2, key=13)
         taken_core_r = col3.number_input('Left # of cores taken', -1, 30, 6, key=14)
 
-        submitted = st.form_submit_button(label='Submit')
+        submitted = st.form_submit_button(label='SUBMIT')
 
         if submitted:
             ### LEFT DATA STORAGE ###
