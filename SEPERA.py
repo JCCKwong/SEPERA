@@ -188,38 +188,38 @@ def page_sepera():
 
             ### ANNOTATED PROSTATE DIAGRAM ###
             # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
-            if base_findings <= 0:
+            if base_findings <= 0 or base_p_inv <= 0:
                 base_L = str(G_CHOICES[base_findings]) + '\n' \
                      + '% core involvement: n/a'
             else:
                 base_L = str(G_CHOICES[base_findings]) + '\n' \
                      + '% core involvement: ' + str(base_p_inv)
-            if mid_findings <= 0:
+            if mid_findings <= 0 or mid_p_inv <= 0:
                 mid_L = str(G_CHOICES[mid_findings]) + '\n' \
                      + '% core involvement: n/a'
             else:
                 mid_L = str(G_CHOICES[mid_findings]) + '\n' \
                      + '% core involvement: ' + str(mid_p_inv)
-            if apex_findings <= 0:
+            if apex_findings <= 0 or apex_p_inv <= 0:
                 apex_L = str(G_CHOICES[apex_findings]) + '\n' \
                      + '% core involvement: n/a'
             else:
                 apex_L = str(G_CHOICES[apex_findings]) + '\n' \
                      + '% core involvement: ' + str(apex_p_inv)
 
-            if base_findings_r <= 0:
+            if base_findings_r <= 0 or base_p_inv_r <= 0:
                 base_R = str(G_CHOICES[base_findings_r]) + '\n' \
                      + '% core involvement: n/a'
             else:
                 base_R = str(G_CHOICES[base_findings_r]) + '\n' \
                      + '% core involvement: ' + str(base_p_inv_r)
-            if mid_findings_r <= 0:
+            if mid_findings_r <= 0 or mid_p_inv_r <= 0:
                 mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
                      + '% core involvement: n/a'
             else:
                 mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
                      + '% core involvement: ' + str(mid_p_inv_r)
-            if apex_findings_r <= 0:
+            if apex_findings_r <= 0 or apex_p_inv_r <= 0:
                 apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
                      + '% core involvement: n/a'
             else:
