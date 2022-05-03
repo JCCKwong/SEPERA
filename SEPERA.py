@@ -253,19 +253,19 @@ def page_sepera():
 
             if base_findings_r == 1:
                 image_br_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 1.png')).convert('RGBA')
-                image.paste(image_br_G1, (1665, 1615), mask=image_br_G1)
+                image.paste(image_br_G1, (1658, 1615), mask=image_br_G1)
             if base_findings_r == 2:
                 image_br_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 2.png')).convert('RGBA')
-                image.paste(image_br_G2, (1665, 1615), mask=image_br_G2)
+                image.paste(image_br_G2, (1658, 1615), mask=image_br_G2)
             if base_findings_r == 3:
                 image_br_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 3.png')).convert('RGBA')
-                image.paste(image_br_G3, (1665, 1615), mask=image_br_G3)
+                image.paste(image_br_G3, (1658, 1615), mask=image_br_G3)
             if base_findings_r == 4:
                 image_br_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 4.png')).convert('RGBA')
-                image.paste(image_br_G4, (1665, 1615), mask=image_br_G4)
+                image.paste(image_br_G4, (1658, 1615), mask=image_br_G4)
             if base_findings_r == 5:
                 image_br_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 5.png')).convert('RGBA')
-                image.paste(image_br_G5, (1665, 1615), mask=image_br_G5)
+                image.paste(image_br_G5, (1658, 1615), mask=image_br_G5)
 
             if mid_findings_r == 1:
                 image_mr_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
