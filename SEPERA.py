@@ -34,7 +34,7 @@ def page_sepera():
     st.sidebar.markdown(
         """
     1. Enter patient information on the right
-        * If there is missing information, enter -1 or Unknown to the missing fields
+        * If there is missing information, enter -1 or Unknown for the missing fields
     1. Press submit button
     1. SEPERA will output the following:
         * Annotated prostate map showing location and severity of disease
