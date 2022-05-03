@@ -317,7 +317,7 @@ def page_sepera():
 
             col5.header('Prostate Diagram')
             col5.write('Automatically updates based on individualized patient characteristics.')
-            col5.image(image, width=600)
+            col5.image(image, width=800)
 
 
 
@@ -380,9 +380,10 @@ PAGES = {
 
 if __name__ == "__main__":
     st.set_page_config(page_title="SEPERA - Side-Specific Extra-Prostatic Extension Risk Assessment",
-                       page_icon="📊",
+                       page_icon="https://www.pikpng.com/pngl/b/174-1748384_prostate-cancer-ribbon-png-png-download-"
+                                 "world-mental.png",
                        layout="wide",
-                       initial_sidebar_state="expanded"
+                       initial_sidebar_state="auto"
                        )
     load_widget_state()
     main()
