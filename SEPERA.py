@@ -188,7 +188,11 @@ def page_sepera():
 
             ### ANNOTATED PROSTATE DIAGRAM ###
             # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
-            base_L = str(G_CHOICES[base_findings]) + '\n' \
+            if base_findings <= 1:
+                base_L = str(G_CHOICES[base_findings]) + '\n' \
+                     + '% core involvement: n/a'
+            else:
+                base_L = str(G_CHOICES[base_findings]) + '\n' \
                      + '% core involvement: ' + str(base_p_inv)
             mid_L = str(G_CHOICES[mid_findings]) + '\n' \
                     + '% core involvement: ' + str(mid_p_inv)
