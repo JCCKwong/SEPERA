@@ -284,35 +284,35 @@ def page_sepera():
 
             if base_findings_r == 1:
                 image_br_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 1.png')).convert('RGBA')
-                image.paste(image_br_G1, (1658, 1615), mask=image_br_G1)
+                image.paste(image_br_G1, (1665, 1615), mask=image_br_G1)
             if base_findings_r == 2:
                 image_br_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 2.png')).convert('RGBA')
-                image.paste(image_br_G2, (1658, 1615), mask=image_br_G2)
+                image.paste(image_br_G2, (1665, 1615), mask=image_br_G2)
             if base_findings_r == 3:
                 image_br_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 3.png')).convert('RGBA')
-                image.paste(image_br_G3, (1658, 1615), mask=image_br_G3)
+                image.paste(image_br_G3, (1665, 1615), mask=image_br_G3)
             if base_findings_r == 4:
                 image_br_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 4.png')).convert('RGBA')
-                image.paste(image_br_G4, (1658, 1615), mask=image_br_G4)
+                image.paste(image_br_G4, (1665, 1615), mask=image_br_G4)
             if base_findings_r == 5:
                 image_br_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 5.png')).convert('RGBA')
-                image.paste(image_br_G5, (1658, 1615), mask=image_br_G5)
+                image.paste(image_br_G5, (1665, 1615), mask=image_br_G5)
 
             if mid_findings_r == 1:
                 image_mr_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
-                image.paste(image_mr_G1, (1658, 965), mask=image_mr_G1)
+                image.paste(image_mr_G1, (1665, 965), mask=image_mr_G1)
             if mid_findings_r == 2:
                 image_mr_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
-                image.paste(image_mr_G2, (1658, 965), mask=image_mr_G2)
+                image.paste(image_mr_G2, (1665, 965), mask=image_mr_G2)
             if mid_findings_r == 3:
                 image_mr_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
-                image.paste(image_mr_G3, (1658, 965), mask=image_mr_G3)
+                image.paste(image_mr_G3, (1665, 965), mask=image_mr_G3)
             if mid_findings_r == 4:
                 image_mr_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
-                image.paste(image_mr_G4, (1658, 965), mask=image_mr_G4)
+                image.paste(image_mr_G4, (1665, 965), mask=image_mr_G4)
             if mid_findings_r == 5:
                 image_mr_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
-                image.paste(image_mr_G5, (1658, 965), mask=image_mr_G5)
+                image.paste(image_mr_G5, (1665, 965), mask=image_mr_G5)
 
             if apex_findings_r == 1:
                 image_ar_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 1.png')).convert('RGBA')
@@ -352,7 +352,7 @@ def page_sepera():
                        'extended beyond the right side of the prostate'
                        .format(str((model.predict_proba(pt_features_r)[:, 1] * 10).round())[1:-2]))
             col5.header('Prostate Diagram')
-            col5.image(image, width=800)
+            col5.image(image, use_column_width=True)
 
 
 
