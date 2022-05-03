@@ -107,252 +107,266 @@ def page_sepera():
                                       format_func=format_func_yn, index=1)
 
         col2.subheader("Left-sided Biopsy Information")
-        base_findings = col2.selectbox('Left base findings', options=list(G_CHOICES.keys()),
+        base_findings = col2.selectbox('Left BASE findings', options=list(G_CHOICES.keys()),
                                      format_func=format_func_gleason, index=3)
-        base_p_inv = col2.number_input('Left base % core involvement (0 to 100)', -1.0, 100.0, value=30.0, key=5)
-        mid_findings = col2.selectbox('Left mid findings', options=list(G_CHOICES.keys()),
+        base_p_inv = col2.number_input('Left BASE % core involvement (0 to 100)', -1.0, 100.0, value=30.0, key=5)
+        mid_findings = col2.selectbox('Left MID findings', options=list(G_CHOICES.keys()),
                                     format_func=format_func_gleason,
                                     index=3)
-        mid_p_inv = col2.number_input('Left mid % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=6)
-        apex_findings = col2.selectbox('Left apex findings', options=list(G_CHOICES.keys()),
+        mid_p_inv = col2.number_input('Left MID % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=6)
+        apex_findings = col2.selectbox('Left APEX findings', options=list(G_CHOICES.keys()),
                                      format_func=format_func_gleason, index=2)
-        apex_p_inv = col2.number_input('Left apex % core involvement (0 to 100)', -1.0, 100.0, value=100.0, key=7)
+        apex_p_inv = col2.number_input('Left APEX % core involvement (0 to 100)', -1.0, 100.0, value=100.0, key=7)
         pos_core = col2.number_input('Left # of positive cores', -1, 30, 5, key=8)
         taken_core = col2.number_input('Left # of cores taken', -1, 30, 6, key=9)
 
         col3.subheader("Right-sided Biopsy Information")
-        base_findings_r = col3.selectbox('Right base findings', options=list(G_CHOICES.keys()),
+        base_findings_r = col3.selectbox('Right BASE findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=1)
-        base_p_inv_r = col3.number_input('Right base % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=10)
-        mid_findings_r = col3.selectbox('Right mid findings', options=list(G_CHOICES.keys()),
+        base_p_inv_r = col3.number_input('Right BASE % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=10)
+        mid_findings_r = col3.selectbox('Right MID findings', options=list(G_CHOICES.keys()),
                                       format_func=format_func_gleason, index=1)
-        mid_p_inv_r = col3.number_input('Right mid % core involvement (0 to 100)', -1.0, 100.0, value=10.0, key=11)
-        apex_findings_r = col3.selectbox('Right apex findings', options=list(G_CHOICES.keys()),
+        mid_p_inv_r = col3.number_input('Right MID % core involvement (0 to 100)', -1.0, 100.0, value=10.0, key=11)
+        apex_findings_r = col3.selectbox('Right APEX findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=0)
-        apex_p_inv_r = col3.number_input('Right apex % core involvement (0 to 100)', -1.0, 100.0, value=0.0, key=12)
+        apex_p_inv_r = col3.number_input('Right APEX % core involvement (0 to 100)', -1.0, 100.0, value=0.0, key=12)
         pos_core_r = col3.number_input('Left # of positive cores', -1, 30, 2, key=13)
         taken_core_r = col3.number_input('Left # of cores taken', -1, 30, 6, key=14)
 
         submitted = st.form_submit_button(label='SUBMIT')
 
         if submitted:
-            ### LEFT DATA STORAGE ###
-            # Group site findings into a list
-            gleason_t = [base_findings, mid_findings, apex_findings]
+            ### CHECK FOR ERRORS ###
+            if (base_findings == 0 and base_p_inv != 0) or (mid_findings == 0 and mid_p_inv != 0) or (apex_findings == 0 and apex_p_inv != 0) or (base_findings_r == 0 and base_p_inv_r != 0) or (mid_findings_r == 0 and mid_p_inv_r != 0) or (apex_findings_r == 0 and apex_p_inv_r != 0):
+                st.warning("Error: Please ensure % core involvement is set to 0 if the biopsy cores at that site are "
+                           "Normal.")
 
-            # Group % core involvements at each site into a list
-            p_inv_t = [base_p_inv, mid_p_inv, apex_p_inv]
+            elif (base_findings == -1 and base_p_inv != -1) or (mid_findings == -1 and mid_p_inv != -1) or (apex_findings == -1 and apex_p_inv != -1) or (base_findings_r == -1 and base_p_inv_r != -1) or (mid_findings_r == -1 and mid_p_inv_r != -1) or (apex_findings_r == -1 and apex_p_inv_r != -1):
+                st.warning("Error: Please ensure % core involvement is set to -1 if the biopsy cores at that site are "
+                           "Unknown.")
 
-            # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason
-            # then descending % core involvement
-            g_p_inv = pd.DataFrame({'Gleason': gleason_t, '% core involvement': p_inv_t})
-            sort_g_p_inv = g_p_inv.sort_values(by=['Gleason', '% core involvement'], ascending=False)
+            elif (pos_core > taken_core) or (pos_core_r > taken_core_r):
+                st.warning("Error: The number of positive cores should be equal or less than the number of cores taken."
+                           "")
 
-            # Store a dictionary into a variable
-            pt_data = {'Age at Biopsy': age,
-                       'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
-                       'PSA density': psa / vol,
-                       'Perineural invasion': perineural_inv,
-                       '% positive cores': (pos_core / taken_core) * 100,
-                       '% Gleason pattern 4/5': p_high,
-                       'Max % core involvement': sort_g_p_inv['% core involvement'].max(),
-                       'Base finding': base_findings,
-                       'Base % core involvement': base_p_inv,
-                       'Mid % core involvement': mid_p_inv,
-                       'Apex % core involvement': apex_p_inv
-                       }
-
-            pt_features = pd.DataFrame(pt_data, index=[0])
-
-            ### RIGHT DATA STORAGE ###
-            # Group site findings into a list
-            gleason_t_r = [base_findings_r, mid_findings_r, apex_findings_r]
-
-            # Group % core involvements at each site into a list
-            p_inv_t_r = [base_p_inv_r, mid_p_inv_r, apex_p_inv_r]
-
-            # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason
-            # then descending % core involvement
-            g_p_inv_r = pd.DataFrame({'Gleason': gleason_t_r, '% core involvement': p_inv_t_r})
-            sort_g_p_inv_r = g_p_inv_r.sort_values(by=['Gleason', '% core involvement'], ascending=False)
-
-            # Store a dictionary into a variable
-            pt_data_r = {'Age at Biopsy': age,
-                         'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
-                         'PSA density': psa / vol,
-                         'Perineural invasion': perineural_inv,
-                         '% positive cores': (pos_core_r / taken_core_r) * 100,
-                         '% Gleason pattern 4/5': p_high,
-                         'Max % core involvement': sort_g_p_inv_r['% core involvement'].max(),
-                         'Base finding': base_findings_r,
-                         'Base % core involvement': base_p_inv_r,
-                         'Mid % core involvement': mid_p_inv_r,
-                         'Apex % core involvement': apex_p_inv_r
-                         }
-
-            pt_features_r = pd.DataFrame(pt_data_r, index=[0])
-
-            ### ANNOTATED PROSTATE DIAGRAM ###
-            # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
-            if base_findings <= 0 or base_p_inv <= 0:
-                base_L = str(G_CHOICES[base_findings]) + '\n' \
-                     + '% core involvement: n/a'
             else:
-                base_L = str(G_CHOICES[base_findings]) + '\n' \
-                     + '% core involvement: ' + str(base_p_inv)
-            if mid_findings <= 0 or mid_p_inv <= 0:
-                mid_L = str(G_CHOICES[mid_findings]) + '\n' \
-                     + '% core involvement: n/a'
-            else:
-                mid_L = str(G_CHOICES[mid_findings]) + '\n' \
-                     + '% core involvement: ' + str(mid_p_inv)
-            if apex_findings <= 0 or apex_p_inv <= 0:
-                apex_L = str(G_CHOICES[apex_findings]) + '\n' \
-                     + '% core involvement: n/a'
-            else:
-                apex_L = str(G_CHOICES[apex_findings]) + '\n' \
-                     + '% core involvement: ' + str(apex_p_inv)
+                ### LEFT DATA STORAGE ###
+                # Group site findings into a list
+                gleason_t = [base_findings, mid_findings, apex_findings]
 
-            if base_findings_r <= 0 or base_p_inv_r <= 0:
-                base_R = str(G_CHOICES[base_findings_r]) + '\n' \
-                     + '% core involvement: n/a'
-            else:
-                base_R = str(G_CHOICES[base_findings_r]) + '\n' \
-                     + '% core involvement: ' + str(base_p_inv_r)
-            if mid_findings_r <= 0 or mid_p_inv_r <= 0:
-                mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
-                     + '% core involvement: n/a'
-            else:
-                mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
-                     + '% core involvement: ' + str(mid_p_inv_r)
-            if apex_findings_r <= 0 or apex_p_inv_r <= 0:
-                apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
-                     + '% core involvement: n/a'
-            else:
-                apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
-                     + '% core involvement: ' + str(apex_p_inv_r)
+                # Group % core involvements at each site into a list
+                p_inv_t = [base_p_inv, mid_p_inv, apex_p_inv]
 
-            # Set conditions to show colour coded site images based on Gleason Grade Group for each site
-            draw = ImageDraw.Draw(image)
-            if base_findings == 1:
-                image_bl_G1 = PIL.Image.open('Images/Base 1.png').convert('RGBA')
-                image.paste(image_bl_G1, (495, 1615), mask=image_bl_G1)
-            if base_findings == 2:
-                image_bl_G2 = PIL.Image.open('Images/Base 2.png').convert('RGBA')
-                image.paste(image_bl_G2, (495, 1615), mask=image_bl_G2)
-            if base_findings == 3:
-                image_bl_G3 = PIL.Image.open('Images/Base 3.png').convert('RGBA')
-                image.paste(image_bl_G3, (495, 1615), mask=image_bl_G3)
-            if base_findings == 4:
-                image_bl_G4 = PIL.Image.open('Images/Base 4.png').convert('RGBA')
-                image.paste(image_bl_G4, (495, 1615), mask=image_bl_G4)
-            if base_findings == 5:
-                image_bl_G5 = PIL.Image.open('Images/Base 5.png').convert('RGBA')
-                image.paste(image_bl_G5, (495, 1615), mask=image_bl_G5)
+                # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason
+                # then descending % core involvement
+                g_p_inv = pd.DataFrame({'Gleason': gleason_t, '% core involvement': p_inv_t})
+                sort_g_p_inv = g_p_inv.sort_values(by=['Gleason', '% core involvement'], ascending=False)
 
-            if mid_findings == 1:
-                image_ml_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
-                image.paste(image_ml_G1, (495, 965), mask=image_ml_G1)  # 606
-            if mid_findings == 2:
-                image_ml_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
-                image.paste(image_ml_G2, (495, 965), mask=image_ml_G2)
-            if mid_findings == 3:
-                image_ml_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
-                image.paste(image_ml_G3, (495, 965), mask=image_ml_G3)
-            if mid_findings == 4:
-                image_ml_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
-                image.paste(image_ml_G4, (495, 965), mask=image_ml_G4)
-            if mid_findings == 5:
-                image_ml_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
-                image.paste(image_ml_G5, (495, 965), mask=image_ml_G5)
+                # Store a dictionary into a variable
+                pt_data = {'Age at Biopsy': age,
+                           'Worst Gleason Grade Group': sort_g_p_inv['Gleason'].max(),
+                           'PSA density': psa / vol,
+                           'Perineural invasion': perineural_inv,
+                           '% positive cores': (pos_core / taken_core) * 100,
+                           '% Gleason pattern 4/5': p_high,
+                           'Max % core involvement': sort_g_p_inv['% core involvement'].max(),
+                           'Base finding': base_findings,
+                           'Base % core involvement': base_p_inv,
+                           'Mid % core involvement': mid_p_inv,
+                           'Apex % core involvement': apex_p_inv
+                           }
 
-            if apex_findings == 1:
-                image_al_G1 = PIL.Image.open('Images/Apex 1.png').convert('RGBA')
-                image.paste(image_al_G1, (495, 187), mask=image_al_G1)
-            if apex_findings == 2:
-                image_al_G2 = PIL.Image.open('Images/Apex 2.png').convert('RGBA')
-                image.paste(image_al_G2, (495, 187), mask=image_al_G2)
-            if apex_findings == 3:
-                image_al_G3 = PIL.Image.open('Images/Apex 3.png').convert('RGBA')
-                image.paste(image_al_G3, (495, 187), mask=image_al_G3)
-            if apex_findings == 4:
-                image_al_G4 = PIL.Image.open('Images/Apex 4.png').convert('RGBA')
-                image.paste(image_al_G4, (495, 187), mask=image_al_G4)
-            if apex_findings == 5:
-                image_al_G5 = PIL.Image.open('Images/Apex 5.png').convert('RGBA')
-                image.paste(image_al_G5, (495, 187), mask=image_al_G5)
+                pt_features = pd.DataFrame(pt_data, index=[0])
 
-            if base_findings_r == 1:
-                image_br_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 1.png')).convert('RGBA')
-                image.paste(image_br_G1, (1665, 1615), mask=image_br_G1)
-            if base_findings_r == 2:
-                image_br_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 2.png')).convert('RGBA')
-                image.paste(image_br_G2, (1665, 1615), mask=image_br_G2)
-            if base_findings_r == 3:
-                image_br_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 3.png')).convert('RGBA')
-                image.paste(image_br_G3, (1665, 1615), mask=image_br_G3)
-            if base_findings_r == 4:
-                image_br_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 4.png')).convert('RGBA')
-                image.paste(image_br_G4, (1665, 1615), mask=image_br_G4)
-            if base_findings_r == 5:
-                image_br_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 5.png')).convert('RGBA')
-                image.paste(image_br_G5, (1665, 1615), mask=image_br_G5)
+                ### RIGHT DATA STORAGE ###
+                # Group site findings into a list
+                gleason_t_r = [base_findings_r, mid_findings_r, apex_findings_r]
 
-            if mid_findings_r == 1:
-                image_mr_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
-                image.paste(image_mr_G1, (1665, 965), mask=image_mr_G1)
-            if mid_findings_r == 2:
-                image_mr_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
-                image.paste(image_mr_G2, (1665, 965), mask=image_mr_G2)
-            if mid_findings_r == 3:
-                image_mr_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
-                image.paste(image_mr_G3, (1665, 965), mask=image_mr_G3)
-            if mid_findings_r == 4:
-                image_mr_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
-                image.paste(image_mr_G4, (1665, 965), mask=image_mr_G4)
-            if mid_findings_r == 5:
-                image_mr_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
-                image.paste(image_mr_G5, (1665, 965), mask=image_mr_G5)
+                # Group % core involvements at each site into a list
+                p_inv_t_r = [base_p_inv_r, mid_p_inv_r, apex_p_inv_r]
 
-            if apex_findings_r == 1:
-                image_ar_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 1.png')).convert('RGBA')
-                image.paste(image_ar_G1, (1665, 187), mask=image_ar_G1)
-            if apex_findings_r == 2:
-                image_ar_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 2.png')).convert('RGBA')
-                image.paste(image_ar_G2, (1665, 187), mask=image_ar_G2)
-            if apex_findings_r == 3:
-                image_ar_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 3.png')).convert('RGBA')
-                image.paste(image_ar_G3, (1665, 187), mask=image_ar_G3)
-            if apex_findings_r == 4:
-                image_ar_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 4.png')).convert('RGBA')
-                image.paste(image_ar_G4, (1665, 187), mask=image_ar_G4)
-            if apex_findings_r == 5:
-                image_ar_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 5.png')).convert('RGBA')
-                image.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
+                # Combine site findings and % core involvements into a pandas DataFrame and sort by descending Gleason
+                # then descending % core involvement
+                g_p_inv_r = pd.DataFrame({'Gleason': gleason_t_r, '% core involvement': p_inv_t_r})
+                sort_g_p_inv_r = g_p_inv_r.sort_values(by=['Gleason', '% core involvement'], ascending=False)
 
-            # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
-            draw.text((655, 1920), base_L, fill="black", font=font, align="center")
-            draw.text((655, 1190), mid_L, fill="black", font=font, align="center")
-            draw.text((735, 545), apex_L, fill="black", font=font, align="center")
-            draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
-            draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
-            draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
+                # Store a dictionary into a variable
+                pt_data_r = {'Age at Biopsy': age,
+                             'Worst Gleason Grade Group': sort_g_p_inv_r['Gleason'].max(),
+                             'PSA density': psa / vol,
+                             'Perineural invasion': perineural_inv,
+                             '% positive cores': (pos_core_r / taken_core_r) * 100,
+                             '% Gleason pattern 4/5': p_high,
+                             'Max % core involvement': sort_g_p_inv_r['% core involvement'].max(),
+                             'Base finding': base_findings_r,
+                             'Base % core involvement': base_p_inv_r,
+                             'Mid % core involvement': mid_p_inv_r,
+                             'Apex % core involvement': apex_p_inv_r
+                             }
 
-            col4, col5 = st.columns([1, 2])
-            left_prob = str((model.predict_proba(pt_features)[:, 1] * 100).round())[1:-2]
-            right_prob = str((model.predict_proba(pt_features_r)[:, 1] * 100).round())[1:-2]
+                pt_features_r = pd.DataFrame(pt_data_r, index=[0])
 
-            col4.header('Your Results')
-            col4.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
-            col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
-                       'extended beyond the left side of the prostate'
-                       .format(str((model.predict_proba(pt_features)[:, 1] * 10).round())[1:-2]))
-            col4.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
-            col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
-                       'extended beyond the right side of the prostate'
-                       .format(str((model.predict_proba(pt_features_r)[:, 1] * 10).round())[1:-2]))
-            col5.header('Prostate Diagram')
-            col5.image(image, use_column_width=True)
+                ### ANNOTATED PROSTATE DIAGRAM ###
+                # Create text to overlay on annotated prostate diagram, auto-updates based on user inputted values
+                if base_findings <= 0 or base_p_inv <= 0:
+                    base_L = str(G_CHOICES[base_findings]) + '\n' \
+                         + '% core involvement: n/a'
+                else:
+                    base_L = str(G_CHOICES[base_findings]) + '\n' \
+                         + '% core involvement: ' + str(base_p_inv)
+                if mid_findings <= 0 or mid_p_inv <= 0:
+                    mid_L = str(G_CHOICES[mid_findings]) + '\n' \
+                         + '% core involvement: n/a'
+                else:
+                    mid_L = str(G_CHOICES[mid_findings]) + '\n' \
+                         + '% core involvement: ' + str(mid_p_inv)
+                if apex_findings <= 0 or apex_p_inv <= 0:
+                    apex_L = str(G_CHOICES[apex_findings]) + '\n' \
+                         + '% core involvement: n/a'
+                else:
+                    apex_L = str(G_CHOICES[apex_findings]) + '\n' \
+                         + '% core involvement: ' + str(apex_p_inv)
+
+                if base_findings_r <= 0 or base_p_inv_r <= 0:
+                    base_R = str(G_CHOICES[base_findings_r]) + '\n' \
+                         + '% core involvement: n/a'
+                else:
+                    base_R = str(G_CHOICES[base_findings_r]) + '\n' \
+                         + '% core involvement: ' + str(base_p_inv_r)
+                if mid_findings_r <= 0 or mid_p_inv_r <= 0:
+                    mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
+                         + '% core involvement: n/a'
+                else:
+                    mid_R = str(G_CHOICES[mid_findings_r]) + '\n' \
+                         + '% core involvement: ' + str(mid_p_inv_r)
+                if apex_findings_r <= 0 or apex_p_inv_r <= 0:
+                    apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
+                         + '% core involvement: n/a'
+                else:
+                    apex_R = str(G_CHOICES[apex_findings_r]) + '\n' \
+                         + '% core involvement: ' + str(apex_p_inv_r)
+
+                # Set conditions to show colour coded site images based on Gleason Grade Group for each site
+                draw = ImageDraw.Draw(image)
+                if base_findings == 1:
+                    image_bl_G1 = PIL.Image.open('Images/Base 1.png').convert('RGBA')
+                    image.paste(image_bl_G1, (495, 1615), mask=image_bl_G1)
+                if base_findings == 2:
+                    image_bl_G2 = PIL.Image.open('Images/Base 2.png').convert('RGBA')
+                    image.paste(image_bl_G2, (495, 1615), mask=image_bl_G2)
+                if base_findings == 3:
+                    image_bl_G3 = PIL.Image.open('Images/Base 3.png').convert('RGBA')
+                    image.paste(image_bl_G3, (495, 1615), mask=image_bl_G3)
+                if base_findings == 4:
+                    image_bl_G4 = PIL.Image.open('Images/Base 4.png').convert('RGBA')
+                    image.paste(image_bl_G4, (495, 1615), mask=image_bl_G4)
+                if base_findings == 5:
+                    image_bl_G5 = PIL.Image.open('Images/Base 5.png').convert('RGBA')
+                    image.paste(image_bl_G5, (495, 1615), mask=image_bl_G5)
+
+                if mid_findings == 1:
+                    image_ml_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
+                    image.paste(image_ml_G1, (495, 965), mask=image_ml_G1)  # 606
+                if mid_findings == 2:
+                    image_ml_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
+                    image.paste(image_ml_G2, (495, 965), mask=image_ml_G2)
+                if mid_findings == 3:
+                    image_ml_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
+                    image.paste(image_ml_G3, (495, 965), mask=image_ml_G3)
+                if mid_findings == 4:
+                    image_ml_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
+                    image.paste(image_ml_G4, (495, 965), mask=image_ml_G4)
+                if mid_findings == 5:
+                    image_ml_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
+                    image.paste(image_ml_G5, (495, 965), mask=image_ml_G5)
+
+                if apex_findings == 1:
+                    image_al_G1 = PIL.Image.open('Images/Apex 1.png').convert('RGBA')
+                    image.paste(image_al_G1, (495, 187), mask=image_al_G1)
+                if apex_findings == 2:
+                    image_al_G2 = PIL.Image.open('Images/Apex 2.png').convert('RGBA')
+                    image.paste(image_al_G2, (495, 187), mask=image_al_G2)
+                if apex_findings == 3:
+                    image_al_G3 = PIL.Image.open('Images/Apex 3.png').convert('RGBA')
+                    image.paste(image_al_G3, (495, 187), mask=image_al_G3)
+                if apex_findings == 4:
+                    image_al_G4 = PIL.Image.open('Images/Apex 4.png').convert('RGBA')
+                    image.paste(image_al_G4, (495, 187), mask=image_al_G4)
+                if apex_findings == 5:
+                    image_al_G5 = PIL.Image.open('Images/Apex 5.png').convert('RGBA')
+                    image.paste(image_al_G5, (495, 187), mask=image_al_G5)
+
+                if base_findings_r == 1:
+                    image_br_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 1.png')).convert('RGBA')
+                    image.paste(image_br_G1, (1665, 1615), mask=image_br_G1)
+                if base_findings_r == 2:
+                    image_br_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 2.png')).convert('RGBA')
+                    image.paste(image_br_G2, (1665, 1615), mask=image_br_G2)
+                if base_findings_r == 3:
+                    image_br_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 3.png')).convert('RGBA')
+                    image.paste(image_br_G3, (1665, 1615), mask=image_br_G3)
+                if base_findings_r == 4:
+                    image_br_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 4.png')).convert('RGBA')
+                    image.paste(image_br_G4, (1665, 1615), mask=image_br_G4)
+                if base_findings_r == 5:
+                    image_br_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Base 5.png')).convert('RGBA')
+                    image.paste(image_br_G5, (1665, 1615), mask=image_br_G5)
+
+                if mid_findings_r == 1:
+                    image_mr_G1 = PIL.Image.open('Images/Mid 1.png').convert('RGBA')
+                    image.paste(image_mr_G1, (1665, 965), mask=image_mr_G1)
+                if mid_findings_r == 2:
+                    image_mr_G2 = PIL.Image.open('Images/Mid 2.png').convert('RGBA')
+                    image.paste(image_mr_G2, (1665, 965), mask=image_mr_G2)
+                if mid_findings_r == 3:
+                    image_mr_G3 = PIL.Image.open('Images/Mid 3.png').convert('RGBA')
+                    image.paste(image_mr_G3, (1665, 965), mask=image_mr_G3)
+                if mid_findings_r == 4:
+                    image_mr_G4 = PIL.Image.open('Images/Mid 4.png').convert('RGBA')
+                    image.paste(image_mr_G4, (1665, 965), mask=image_mr_G4)
+                if mid_findings_r == 5:
+                    image_mr_G5 = PIL.Image.open('Images/Mid 5.png').convert('RGBA')
+                    image.paste(image_mr_G5, (1665, 965), mask=image_mr_G5)
+
+                if apex_findings_r == 1:
+                    image_ar_G1 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 1.png')).convert('RGBA')
+                    image.paste(image_ar_G1, (1665, 187), mask=image_ar_G1)
+                if apex_findings_r == 2:
+                    image_ar_G2 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 2.png')).convert('RGBA')
+                    image.paste(image_ar_G2, (1665, 187), mask=image_ar_G2)
+                if apex_findings_r == 3:
+                    image_ar_G3 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 3.png')).convert('RGBA')
+                    image.paste(image_ar_G3, (1665, 187), mask=image_ar_G3)
+                if apex_findings_r == 4:
+                    image_ar_G4 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 4.png')).convert('RGBA')
+                    image.paste(image_ar_G4, (1665, 187), mask=image_ar_G4)
+                if apex_findings_r == 5:
+                    image_ar_G5 = PIL.ImageOps.mirror(PIL.Image.open('Images/Apex 5.png')).convert('RGBA')
+                    image.paste(image_ar_G5, (1665, 187), mask=image_ar_G5)
+
+                # Overlay text showing Gleason Grade Group, % positive cores, and % core involvement for each site
+                draw.text((655, 1920), base_L, fill="black", font=font, align="center")
+                draw.text((655, 1190), mid_L, fill="black", font=font, align="center")
+                draw.text((735, 545), apex_L, fill="black", font=font, align="center")
+                draw.text((1850, 1920), base_R, fill="black", font=font, align="center")
+                draw.text((1850, 1190), mid_R, fill="black", font=font, align="center")
+                draw.text((1770, 545), apex_R, fill="black", font=font, align="center")
+
+                col4, col5 = st.columns([1, 2])
+                left_prob = str((model.predict_proba(pt_features)[:, 1] * 100).round())[1:-2]
+                right_prob = str((model.predict_proba(pt_features_r)[:, 1] * 100).round())[1:-2]
+
+                col4.header('Your Results')
+                col4.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
+                col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
+                           'extended beyond the left side of the prostate'
+                           .format(str((model.predict_proba(pt_features)[:, 1] * 10).round())[1:-2]))
+                col4.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
+                col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
+                           'extended beyond the right side of the prostate'
+                           .format(str((model.predict_proba(pt_features_r)[:, 1] * 10).round())[1:-2]))
+                col5.header('Prostate Diagram')
+                col5.image(image, use_column_width=True)
 
 
 
