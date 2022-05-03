@@ -90,6 +90,10 @@ def page_sepera():
 
     # Input individual values in sidebar
     st.header("Enter patient information")
+    if st.button('Click here if you have received hormone therapy or radiation therapy for prostate cancer before your '
+                 'radical prostatectomy'):
+        st.error('The results of SEPERA are not applicable for you since this tool was only trained on patients who '
+                 'did not receive hormone or radiation therapy prior to their surgery.')
     col1, col2, col3 = st.columns([1, 1, 1])
 
     with st.form(key="my_form"):
