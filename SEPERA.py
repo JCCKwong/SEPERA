@@ -352,7 +352,6 @@ def page_sepera():
                        'extended beyond the right side of the prostate'
                        .format(str((model.predict_proba(pt_features_r)[:, 1] * 10).round())[1:-2]))
             col5.header('Prostate Diagram')
-            col5.write('Automatically updates based on individualized patient characteristics.')
             col5.image(image, width=800)
 
 
