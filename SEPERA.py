@@ -23,17 +23,17 @@ def main():
         })
     st.title("SEPERA (Side-specific Extra-Prostatic Extension Risk Assessment)")
     st.sidebar.image("Images/Logo.png", use_column_width=True)
-    st.sidebar.header("Navigation")
-    page = st.sidebar.selectbox("", tuple(PAGES.keys()))
+
+    page = st.sidebar.radio("", tuple(PAGES.keys()))
 
     PAGES[page]()
 
 
 def page_sepera():
-    st.header("Instructions")
-    st.markdown(
+    st.sidebar.header("Instructions")
+    st.sidebar.markdown(
         """
-    1. Enter patient information below
+    1. Enter patient information on the right
     1. Press submit button
     1. SEPERA will output the following:
         * Annotated prostate map showing location and severity of disease
@@ -361,13 +361,15 @@ def page_about():
     For more information, the full manuscript is available [here](#).
     """
     )
-    st.header("Contributing Institutions")
-    st.write("""""")
-    st.image("Images/UHN.png", width=400, caption="University Health Network, Toronto, Ontario, Canada")
-    st.write("""""")
-    st.image("Images/THP.png", width=400, caption="Trillium Health Partners, Mississauga, Ontario, Canada")
-    st.image("Images/IMM.png", width=400, caption="L'Institut Mutualiste Montsouris, Paris, France")
-    st.image("Images/JB.png", width=400, caption="Jules Bordet Institute, Brussels, Belgium")
+    st.sidebar.header("Contributing Institutions")
+    st.sidebar.write("""""")
+    st.sidebar.image("Images/UHN.png", caption="University Health Network, Toronto, Canada")
+    st.sidebar.write("""""")
+    st.sidebar.image("Images/THP.png", caption="Trillium Health Partners, Mississauga, Canada")
+    st.sidebar.write("""""")
+    st.sidebar.image("Images/IMM.png", caption="L'Institut Mutualiste Montsouris, Paris, France")
+    st.sidebar.write("""""")
+    st.sidebar.image("Images/JB.png", caption="Jules Bordet Institute, Brussels, Belgium")
 
 
 PAGES = {
