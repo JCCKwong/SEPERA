@@ -106,7 +106,7 @@ def page_sepera():
         perineural_inv = col1.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                       format_func=format_func_yn, index=1)
 
-        col2.subheader("Left-sided Biopsy Information")
+        col2.subheader("Left Biopsy Information")
         base_findings = col2.selectbox('Left BASE findings', options=list(G_CHOICES.keys()),
                                      format_func=format_func_gleason, index=3)
         base_p_inv = col2.number_input('Left BASE % core involvement (0 to 100)', -1.0, 100.0, value=30.0, key=5)
@@ -120,7 +120,7 @@ def page_sepera():
         pos_core = col2.number_input('Left # of positive cores', -1, 30, 5, key=8)
         taken_core = col2.number_input('Left # of cores taken', -1, 30, 6, key=9)
 
-        col3.subheader("Right-sided Biopsy Information")
+        col3.subheader("Right Biopsy Information")
         base_findings_r = col3.selectbox('Right BASE findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=1)
         base_p_inv_r = col3.number_input('Right BASE % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=10)
