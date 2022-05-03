@@ -33,8 +33,9 @@ def page_sepera():
     st.sidebar.header("Instructions")
     st.sidebar.markdown(
         """
-    1. Enter patient information on the right
-        * If there is missing information, enter -1 or Unknown for the missing fields
+    1. Enter your information on the right
+        * All fields are required
+        * If there is missing information, please enter -1 or Unknown for the missing fields
     1. Press submit button
     1. SEPERA will output the following:
         * Annotated prostate map showing location and severity of disease
@@ -89,7 +90,7 @@ def page_sepera():
         return G_CHOICES[option]
 
     # Input individual values in sidebar
-    st.header("Enter patient information")
+    st.header("Enter Your Information")
     if st.button('Click here if you have received hormone therapy or radiation therapy for prostate cancer before your '
                  'radical prostatectomy'):
         st.warning('The results of SEPERA will not be applicable for you since this tool was only trained on patients '
@@ -97,7 +98,7 @@ def page_sepera():
     col1, col2, col3 = st.columns([1, 1, 1])
 
     with st.form(key="my_form"):
-        col1.subheader("General information")
+        col1.subheader("General Information")
         age = col1.number_input("Age (years)", -1, 100, 72, key=1)
         psa = col1.number_input("PSA (ng/ml)", -1.00, 200.00, 11.00, key=2)
         vol = col1.number_input("Prostate volume (ml)", -1.0, 300.0, 40.0, key=3)
@@ -105,7 +106,7 @@ def page_sepera():
         perineural_inv = col1.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                       format_func=format_func_yn, index=1)
 
-        col2.subheader("Left-sided biopsy information")
+        col2.subheader("Left-sided Biopsy Information")
         base_findings = col2.selectbox('Left base findings', options=list(G_CHOICES.keys()),
                                      format_func=format_func_gleason, index=3)
         base_p_inv = col2.number_input('Left base % core involvement (0 to 100)', -1.0, 100.0, value=30.0, key=5)
@@ -119,7 +120,7 @@ def page_sepera():
         pos_core = col2.number_input('Left # of positive cores', -1, 30, 5, key=8)
         taken_core = col2.number_input('Left # of cores taken', -1, 30, 6, key=9)
 
-        col3.subheader("Right-sided biopsy information")
+        col3.subheader("Right-sided Biopsy Information")
         base_findings_r = col3.selectbox('Right base findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=1)
         base_p_inv_r = col3.number_input('Right base % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=10)
