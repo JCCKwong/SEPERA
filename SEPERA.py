@@ -72,7 +72,7 @@ def page_sepera():
     image = load_images()
 
     # Define choices and labels for feature inputs
-    CHOICES = {0: 'No', 1: 'Yes'}
+    CHOICES = {0: 'No', 1: 'Yes', -1: 'Unknown'}
 
     def format_func_yn(option):
         return CHOICES[option]
@@ -82,7 +82,8 @@ def page_sepera():
                  2: 'ISUP Grade 2',
                  3: 'ISUP Grade 3',
                  4: 'ISUP Grade 4',
-                 5: 'ISUP Grade 5'}
+                 5: 'ISUP Grade 5',
+                 -1: 'Unknown'}
 
     def format_func_gleason(option):
         return G_CHOICES[option]
@@ -93,39 +94,39 @@ def page_sepera():
 
     with st.form(key="my_form"):
         col1.subheader("General information")
-        age = col1.number_input("Age (years)", 0, 100, 72, key=1)
-        psa = col1.number_input("PSA (ng/ml)", 0.00, 200.00, 11.00, key=2)
-        vol = col1.number_input("Prostate volume (ml)", 0.0, 300.0, 40.0, key=3)
-        p_high = col1.number_input("% Gleason pattern 4/5", 0.00, 100.00, 20.00, key=4)
+        age = col1.number_input("Age (years)", -1, 100, 72, key=1)
+        psa = col1.number_input("PSA (ng/ml)", -1.00, 200.00, 11.00, key=2)
+        vol = col1.number_input("Prostate volume (ml)", -1.0, 300.0, 40.0, key=3)
+        p_high = col1.number_input("% Gleason pattern 4/5", -1.00, 100.00, 20.00, key=4)
         perineural_inv = col1.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                       format_func=format_func_yn, index=1)
 
         col2.subheader("Left-sided biopsy information")
         base_findings = col2.selectbox('Left base findings', options=list(G_CHOICES.keys()),
                                      format_func=format_func_gleason, index=3)
-        base_p_inv = col2.number_input('Left base % core involvement (0 to 100)', 0.0, 100.0, value=30.0, key=5)
+        base_p_inv = col2.number_input('Left base % core involvement (0 to 100)', -1.0, 100.0, value=30.0, key=5)
         mid_findings = col2.selectbox('Left mid findings', options=list(G_CHOICES.keys()),
                                     format_func=format_func_gleason,
                                     index=3)
-        mid_p_inv = col2.number_input('Left mid % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=6)
+        mid_p_inv = col2.number_input('Left mid % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=6)
         apex_findings = col2.selectbox('Left apex findings', options=list(G_CHOICES.keys()),
                                      format_func=format_func_gleason, index=2)
-        apex_p_inv = col2.number_input('Left apex % core involvement (0 to 100)', 0.0, 100.0, value=100.0, key=7)
-        pos_core = col2.number_input('Left # of positive cores', 0, 30, 5, key=8)
-        taken_core = col2.number_input('Left # of cores taken', 0, 30, 6, key=9)
+        apex_p_inv = col2.number_input('Left apex % core involvement (0 to 100)', -1.0, 100.0, value=100.0, key=7)
+        pos_core = col2.number_input('Left # of positive cores', -1, 30, 5, key=8)
+        taken_core = col2.number_input('Left # of cores taken', -1, 30, 6, key=9)
 
         col3.subheader("Right-sided biopsy information")
         base_findings_r = col3.selectbox('Right base findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=1)
-        base_p_inv_r = col3.number_input('Right base % core involvement (0 to 100)', 0.0, 100.0, value=5.0, key=10)
+        base_p_inv_r = col3.number_input('Right base % core involvement (0 to 100)', -1.0, 100.0, value=5.0, key=10)
         mid_findings_r = col3.selectbox('Right mid findings', options=list(G_CHOICES.keys()),
                                       format_func=format_func_gleason, index=1)
-        mid_p_inv_r = col3.number_input('Right mid % core involvement (0 to 100)', 0.0, 100.0, value=10.0, key=11)
+        mid_p_inv_r = col3.number_input('Right mid % core involvement (0 to 100)', -1.0, 100.0, value=10.0, key=11)
         apex_findings_r = col3.selectbox('Right apex findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=0)
-        apex_p_inv_r = col3.number_input('Right apex % core involvement (0 to 100)', 0.0, 100.0, value=0.0, key=12)
-        pos_core_r = col3.number_input('Left # of positive cores', 0, 30, 2, key=13)
-        taken_core_r = col3.number_input('Left # of cores taken', 0, 30, 6, key=14)
+        apex_p_inv_r = col3.number_input('Right apex % core involvement (0 to 100)', -1.0, 100.0, value=0.0, key=12)
+        pos_core_r = col3.number_input('Left # of positive cores', -1, 30, 2, key=13)
+        taken_core_r = col3.number_input('Left # of cores taken', -1, 30, 6, key=14)
 
         submitted = st.form_submit_button(label='Submit')
 
