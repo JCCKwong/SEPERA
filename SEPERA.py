@@ -37,8 +37,7 @@ def page_sepera():
     1. Press submit button
     1. SEPERA will output the following:
         * Annotated prostate map showing location and severity of disease
-        * Probability of side-specific extraprostatic extension (tumour extending beyond the prostatic capsule) 
-        for the left and right prostatic lobe
+        * Probability of side-specific extraprostatic extension (tumour extending beyond the prostatic capsule) for the left and right prostatic lobe
     """
     )
 
