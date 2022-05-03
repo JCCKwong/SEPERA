@@ -343,11 +343,11 @@ def page_sepera():
             right_prob = str((model.predict_proba(pt_features_r)[:, 1] * 100).round())[1:-2]
 
             col4.header('Your Results')
-            col4.subheader('Probability of LEFT extraprostatic extension:   *{}%*'.format(left_prob))
+            col4.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
             col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
                        'extended beyond the left side of the prostate'
                        .format(str((model.predict_proba(pt_features)[:, 1] * 10).round())[1:-2]))
-            col4.subheader('Probability of RIGHT extraprostatic extension:   *{}%*'.format(right_prob))
+            col4.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
             col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
                        'extended beyond the right side of the prostate'
                        .format(str((model.predict_proba(pt_features_r)[:, 1] * 10).round())[1:-2]))
