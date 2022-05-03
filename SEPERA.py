@@ -101,7 +101,7 @@ def page_sepera():
         age = col1.number_input("Age (years)", -1, 100, 72, key=1)
         psa = col1.number_input("PSA (ng/ml)", -1.00, 200.00, 11.00, key=2)
         vol = col1.number_input("Prostate volume (ml)", -1.0, 300.0, 40.0, key=3)
-        p_high = col1.number_input("% Gleason pattern 4/5 (0 to 100)", -1.00, 100.00, 20.00, key=4)
+        p_high = col1.number_input("% Gleason pattern 4/5 disease (0 to 100)", -1.00, 100.00, 20.00, key=4)
         perineural_inv = col1.selectbox("Perineural invasion", options=list(CHOICES.keys()),
                                       format_func=format_func_yn, index=1)
 
