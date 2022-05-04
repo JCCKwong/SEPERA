@@ -48,22 +48,28 @@ def page_sepera():
 
     # Load saved items from Google Drive
     Model_location = st.secrets['SEPERA']
+    Data_location = st.secrets['Data']
 
     @st.cache(allow_output_mutation=True)
     def load_items():
         save_dest = Path('model')
         save_dest.mkdir(exist_ok=True)
         model_checkpoint = Path('model/SEPERA.pkl')
+        data_checkpoint = Path('model/data.pkl')
 
         # download from Google Drive if model or features are not present
         if not model_checkpoint.exists():
-            with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
+            with st.spinner("Downloading ... this may take awhile! \n Don't stop it!"):
                 gdd.download_file_from_google_drive(Model_location, model_checkpoint)
+        if not data_checkpoint.exists():
+            with st.spinner("Downloading ... this may take awhile! \n Don't stop it!"):
+                gdd.download_file_from_google_drive(Data_location, data_checkpoint)
 
         model = joblib.load(model_checkpoint)
-        return model
+        data = joblib.load(data_checkpoint)
+        return model, data
 
-    model = load_items()
+    model, data = load_items()
 
     # Load blank prostate as image objects from GitHub repository
     def load_images():
@@ -356,15 +362,61 @@ def page_sepera():
                 left_prob = str((model.predict_proba(pt_features)[:, 1] * 100).round())[1:-2]
                 right_prob = str((model.predict_proba(pt_features_r)[:, 1] * 100).round())[1:-2]
 
+                ### SIMILAR CASE FINDER ###
+                query = data[(data['Age at Biopsy'].between(pt_features['Age at Biopsy'][0] - 5,
+                                                       pt_features['Age at Biopsy'][0] + 5)) &
+                             (data['Worst Gleason Grade Group'] == pt_features['Worst Gleason Grade Group'][0]) &
+                             (data['PSA density'].between(pt_features['PSA density'][0] * 0.7,
+                                                        pt_features['PSA density'][0] * 1.3)) &
+                             (data['Perineural invasion'] == pt_features['Perineural invasion'][0]) &
+                             (data['% positive cores'].between(pt_features['% positive cores'][0] - 10,
+                                                             pt_features['% positive cores'][0] + 10)) &
+                             (data['% Gleason pattern 4/5'].between(pt_features['% Gleason pattern 4/5'][0] - 10,
+                                                                  pt_features['% Gleason pattern 4/5'][0] + 10)) &
+                             (data['Max % core involvement'].between(pt_features['Max % core involvement'][0] - 10,
+                                                                   pt_features['Max % core involvement'][0] + 10))
+                             ]
+                pos_ssEPE = sum(query['ssEPE'])
+                similar_cases = len(query['ssEPE'])
+
+                query_r = data[(data['Age at Biopsy'].between(pt_features_r['Age at Biopsy'][0] - 5,
+                                                            pt_features_r['Age at Biopsy'][0] + 5)) &
+                             (data['Worst Gleason Grade Group'] == pt_features_r['Worst Gleason Grade Group'][0]) &
+                             (data['PSA density'].between(pt_features_r['PSA density'][0] * 0.7,
+                                                          pt_features_r['PSA density'][0] * 1.3)) &
+                             (data['Perineural invasion'] == pt_features_r['Perineural invasion'][0]) &
+                             (data['% positive cores'].between(pt_features_r['% positive cores'][0] - 10,
+                                                               pt_features_r['% positive cores'][0] + 10)) &
+                             (data['% Gleason pattern 4/5'].between(pt_features_r['% Gleason pattern 4/5'][0] - 10,
+                                                                    pt_features_r['% Gleason pattern 4/5'][0] + 10)) &
+                             (data['Max % core involvement'].between(pt_features_r['Max % core involvement'][0] - 10,
+                                                                     pt_features_r['Max % core involvement'][0] + 10))
+                             ]
+                pos_ssEPE_r = sum(query_r['ssEPE'])
+                similar_cases_r = len(query_r['ssEPE'])
+
+                ### DISPLAY RESULTS ###
                 col4.header('Your Results')
                 col4.subheader('Probability of LEFT extraprostatic extension: {}%'.format(left_prob))
-                col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
-                           'extended beyond the left side of the prostate'
-                           .format(str((model.predict_proba(pt_features)[:, 1] * 10).round())[1:-2]))
+                col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that '
+                             'has extended beyond the left side of the prostate.'
+                             .format(str((model.predict_proba(pt_features)[:, 1] * 10).round())[1:-2]))
+                if similar_cases == 0:
+                    col4.caption('No patients with similar characteristics were found in our database.')
+                else:
+                    col4.caption("From our database, {:} out of {:} patients ({:}%) with similar characteristics "
+                                 "on the left side had left extraprostatic extension."
+                                 .format(pos_ssEPE, similar_cases, round((pos_ssEPE/similar_cases)*100)))
                 col4.subheader('Probability of RIGHT extraprostatic extension: {}%'.format(right_prob))
-                col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that has '
-                           'extended beyond the right side of the prostate'
+                col4.caption('For every 10 patients with your disease profile, about {} patients will have tumour that '
+                             'has extended beyond the right side of the prostate.'
                            .format(str((model.predict_proba(pt_features_r)[:, 1] * 10).round())[1:-2]))
+                if similar_cases_r == 0:
+                    col4.caption('No patients with similar characteristics were found in our database.')
+                else:
+                    col4.caption("From our database, {:} out of {:} patients ({:}%) with similar characteristics "
+                                 "on the right side had right extraprostatic extension."
+                                 .format(pos_ssEPE_r, similar_cases_r, round((pos_ssEPE_r/similar_cases_r)*100)))
                 col5.header('Prostate Diagram')
                 col5.image(image, use_column_width=True)
 
