@@ -37,8 +37,8 @@ def page_sepera():
         * If there is missing information, please enter -1 or Unknown for the missing fields
     1. Press the SUBMIT button
     1. SEPERA will output the following:
-        * Probability of side-specific extraprostatic extension (tumour extending beyond the prostatic capsule) for the left and right prostatic lobe
-        * Number of patients with similar characteristics from our database that had extraprostatic extension
+        * Probability of side-specific extraprostatic extension for the left and right prostatic lobe
+        * Number of patients with similar characteristics from our database that had side-specific extraprostatic extension
         * Prostate diagram showing location and severity of disease
     """
     )
