@@ -444,22 +444,27 @@ def page_about():
     **Development, multi-institutional validation, and algorithmic audit of SEPERA - An artificial intelligence-based 
     Side-specific Extra-Prostatic Extension Risk Assessment tool for patients undergoing radical prostatectomy.**\n
 
-    *Jethro CC. Kwong$^{1,2}$, Adree Khondker$^{3}$, Eric Meng$^{4}$, Nicholas Taylor$^{3}$, Nathan Perlis$^{1}$, 
-    Girish S. Kulkarni$^{1,2}$, Robert J. Hamilton$^{1}$, Neil E. Fleshner$^{1}$, Antonio Finelli$^{1}$, 
-    Valentin Colinet$^{5}$, Alexandre Peltier$^{5}$, Romain Diamand$^{5}$, Yolene Lefebvre$^{5}$, 
-    Qusay Mandoorah$^{6}$, Rafael Sanchez-Salas$^{6}$, Petr Macek$^{6}$, Xavier Cathelineau$^{6}$, 
-    Martin Eklund$^{7}$, Alistair E.W. Johnson$^{2,8,9}$, Andrew H. Feifer$^{1}$, Alexandre R. Zlotta$^{1,10}$*\n
+    *Jethro CC. Kwong$^{1,2,3}$, Adree Khondker$^{4}$, Eric Meng$^{5}$, Nicholas Taylor$^{4}$, Cynthia Kuk$^{6}$, Nathan Perlis$^{1,2}$, 
+    Girish S. Kulkarni$^{1,2,3}$, Robert J. Hamilton$^{1,2}$, Neil E. Fleshner$^{1,2}$, Antonio Finelli$^{1,2}$, Theodorus H. van der Kwast$^{7,9}$,
+    Amna Ali$^{8}$, Munir Jamal$^{1}$, Frank Papanikolaou$^{1}$, Thomas Short$^{1}$, John R. Srigley$^{9}$, Valentin Colinet$^{10}$,
+    Alexandre Peltier$^{10}$, Romain Diamand$^{10}$, Yolene Lefebvre$^{10}$, Qusay Mandoorah$^{11}$, Rafael Sanchez-Salas$^{11}$,
+    Petr Macek$^{11}$, Xavier Cathelineau$^{11}$, Martin Eklund$^{12}$, Alistair E.W. Johnson$^{3,13,14}$, Andrew Feifer$^{1,8}$, 
+    Alexandre R. Zlotta$^{1,2,6}$*\n
 
     1. Division of Urology, Department of Surgery, University of Toronto, Toronto, Ontario, Canada
+    1. Division of Urology, Department of Surgery, Princess Margaret Cancer Centre, University Health Network, Toronto, Ontario, Canada
     1. Temerty Centre for AI Research and Education in Medicine, University of Toronto, Toronto, Ontario, Canada
     1. Temerty Faculty of Medicine, University of Toronto, Toronto, Ontario, Canada
     1. Faculty of Medicine, Queen's University, Kingston, Ontario, Canada
+    1. Division of Urology, Department of Surgery, Mount Sinai Hospital, Sinai Health System, Toronto, Ontario, Canada
+    1. Laboratory Medicine Program, Princess Margaret Cancer Centre, University Health Network, Toronto, Ontario, Canada
+    1. Institute for Better Health, Trillium Health Partners, Mississauga, Ontario, Canada
+    1. Department of Laboratory Medicine and Pathobiology, University of Toronto, Toronto, Ontario, Canada
     1. Jules Bordet Institute, Brussels, Belgium
     1. L'Institut Mutualiste Montsouris, Paris, France
-    1. Department of Medical Epidemiology and Biostatistics, Karolinska Institutet, Stockholm, Sweden
+    1. Department of Medical Epidemiology and Biostatistics, Karolinska Institute, Stockholm, Sweden
     1. Division of Biostatistics, Dalla Lana School of Public Health, University of Toronto, Toronto, Ontario, Canada
     1. Vector Institute, Toronto, Ontario, Canada
-    1. Division of Urology, Department of Surgery, Mount Sinai Hospital, University of Toronto, Toronto, Ontario, Canada
 
     For more information, the full manuscript is available [here](#).
     """
