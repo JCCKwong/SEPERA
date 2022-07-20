@@ -136,8 +136,8 @@ def page_sepera():
         apex_findings_r = col3.selectbox('Right APEX findings', options=list(G_CHOICES.keys()),
                                        format_func=format_func_gleason, index=0)
         apex_p_inv_r = col3.number_input('Right APEX % core involvement (0 to 100)', -1.0, 100.0, value=0.0, key=12)
-        pos_core_r = col3.number_input('Left # of positive cores', -1, 30, 2, key=13)
-        taken_core_r = col3.number_input('Left # of cores taken', -1, 30, 6, key=14)
+        pos_core_r = col3.number_input('Right # of positive cores', -1, 30, 2, key=13)
+        taken_core_r = col3.number_input('Right # of cores taken', -1, 30, 6, key=14)
 
         submitted = st.form_submit_button(label='SUBMIT')
 
