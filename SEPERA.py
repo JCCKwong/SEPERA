@@ -1,6 +1,7 @@
 """
-Title: Development, multi-institutional validation, and algorithmic audit of SEPERA - An artificial intelligence-based
- Side-specific Extra-Prostatic Extension Risk Assessment tool for patients undergoing radical prostatectomy.
+Title: Development, multi-institutional validation, and algorithmic audit of SEPERA, an artificial intelligence-based
+ Side-specific Extra-Prostatic Extension Risk Assessment tool for patients undergoing radical prostatectomy: A 
+ retrospective cohort study.
 """
 
 # Import packages and libraries
@@ -441,8 +442,8 @@ def page_about():
     st.header("Reference")
     st.markdown(
         """
-    **Development, multi-institutional validation, and algorithmic audit of SEPERA - An artificial intelligence-based 
-    Side-specific Extra-Prostatic Extension Risk Assessment tool for patients undergoing radical prostatectomy.**\n
+    **Development, multi-institutional validation, and algorithmic audit of SEPERA, an artificial intelligence-based 
+    Side-specific Extra-Prostatic Extension Risk Assessment tool for patients undergoing radical prostatectomy: A retrospective cohort study.**\n
 
     *Jethro CC. Kwong$^{1,2,3}$, Adree Khondker$^{4}$, Eric Meng$^{5}$, Nicholas Taylor$^{4}$, Cynthia Kuk$^{6}$, Nathan Perlis$^{1,2}$, 
     Girish S. Kulkarni$^{1,2,3}$, Robert J. Hamilton$^{1,2}$, Neil E. Fleshner$^{1,2}$, Antonio Finelli$^{1,2}$, Theodorus H. van der Kwast$^{7,9}$,
