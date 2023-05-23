@@ -467,7 +467,7 @@ def page_about():
     1. Division of Biostatistics, Dalla Lana School of Public Health, University of Toronto, Toronto, Ontario, Canada
     1. Vector Institute, Toronto, Ontario, Canada
 
-    For more information, the full manuscript is available [here](#).
+    For more information, the full manuscript is available [here](https://doi.org/10.1016/S2589-7500(23)00067-5).
     """
     )
     st.sidebar.header("Contributing Institutions")
