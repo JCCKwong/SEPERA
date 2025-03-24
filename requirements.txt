@@ -8,3 +8,4 @@ matplotlib==3.3.2
 Pillow==8.1.0
 googledrivedownloader==0.4
 protobuf==3.20.3
+altair==4.0
